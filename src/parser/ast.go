@@ -8,6 +8,7 @@ type Stmnt struct {
 
 type Expr struct {
 	Stmnt
+	kind kinds.NodeType
 }
 
 type Program struct {
@@ -35,5 +36,11 @@ type Property struct {
 	Expr
 	kind kinds.Property
 	key string
-	valu any
+	val any
+}
+
+type ObjectLiteral struct {
+	Expr,
+	kind kinds.ObjectLiteral
+	properties []Property
 }
