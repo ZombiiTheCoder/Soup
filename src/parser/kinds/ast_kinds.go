@@ -1,39 +1,41 @@
 package kinds
 
-type NodeType struct{}
+type AstNode interface{
+	AsString() string
+}
 
 // Statements
-type Program NodeType
-type VarDec NodeType
-type FuncDec NodeType
-type IfState NodeType
-type WhileState NodeType
-type BlockState NodeType
+type Program AstNode
+type VarDec AstNode
+type FuncDec AstNode
+type IfState AstNode
+type WhileState AstNode
+type BlockState AstNode
 
 // Expressions
-type CallExpr NodeType
-type MemberExpr NodeType
-type UnaryExpr NodeType
-type BinaryExpr NodeType
-type AssignExpr NodeType
+type CallExpr AstNode
+type MemberExpr AstNode
+type UnaryExpr AstNode
+type BinaryExpr AstNode
+type AssignExpr AstNode
 
 // Literals
-type Property NodeType
-type Identifier NodeType
-type String NodeType
-type ObjectLiteral NodeType
-type NumericLiteral NodeType
+type Property AstNode
+type Identifier AstNode
+type String AstNode
+type ObjectLiteral AstNode
+type NumericLiteral AstNode
 
 
 
 
 
 
-// type NodeType int
+// type AstNode int
 
 // // Statements
 // const (
-// 	Program NodeType = iota
+// 	Program AstNode = iota
 // 	VarDec
 // 	FuncDec
 // 	IfState

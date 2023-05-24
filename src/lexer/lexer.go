@@ -18,7 +18,7 @@ func Tokenize(text string) []tokens.Token {
 	line := 1
 	colum := 1
 	EOF := false
-
+	
 	
 	for ip <= len(chars)-1{
 		
@@ -28,20 +28,20 @@ func Tokenize(text string) []tokens.Token {
 			ntk := tokens.Token{VAL, TKN, loc}
 			tokenz = append(tokenz, ntk)
 		}
-
-		next := func () string { if (ip+1 != len(chars)) {ip++; colum++;return chars[ip-1];}; return chars[ip-1]}
+		
+		next := func () { if (ip+1 != len(chars)) {ip++; colum++;}else{EOF=true}}
 		at := func () string { return chars[ip]; }
-
+		
 		if (EOF){
 			break
 		}
-
+				
 		if (OCT(at())){
 			BULDTKN(at(), TKNS(at()), colum, colum)
 			next()
 		}
 
-		if (IsSym(at()) ){
+		if (IsSym(at())){
 			tkn:=""
 			strt:=colum
 			for IsSym(at()) && !EOF{
@@ -60,7 +60,7 @@ func Tokenize(text string) []tokens.Token {
 		if (IsAlpha(at())){
 			tkn:=""
 			strt:=colum
-			for IsAlpha(at()) && !EOF{
+			for IsAlphaNum(at()) && !EOF{
 				tkn+=at()
 				next()
 			}
@@ -71,6 +71,18 @@ func Tokenize(text string) []tokens.Token {
 				// os.Exit(1)
 			}
 			BULDTKN(tkn, TKNS(tkn), strt, end)
+			next()
+		}                                
+
+		if (IsNum(at())){
+			tkn:=""
+			strt:=colum
+			for IsNum(at()) && !EOF{
+				tkn+=at()
+				next()
+			}
+			end:=colum
+			BULDTKN(tkn, kind.Numeral, strt, end)
 			next()
 		}
 		
@@ -126,7 +138,7 @@ func Tokenize(text string) []tokens.Token {
 			colum=0
 		}
 
-		if (!IsAlpha(at()) && !IsAlphaNum(at()) && !OCT(at()) && !SKP(at()) && !IsSym(at())){
+		if (!IsAlpha(at()) && !IsAlphaNum(at()) && !IsNum("") && !OCT(at()) && !SKP(at()) && !IsSym(at())){
 			if (TKNS(at()) == kind.FKTKN){
 				fmt.Printf("Invalid Character '%v' at Line: %v starting at %v and ending at %v", at(), line, colum, colum)
 				os.Exit(1)
@@ -134,6 +146,8 @@ func Tokenize(text string) []tokens.Token {
 		}
 
 	}
+
+	tokenz = append(tokenz, tokens.Token{ Type: kind.EOF })
 
 	return tokenz
 }

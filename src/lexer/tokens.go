@@ -94,7 +94,7 @@ func IsAlphaNum(char string) bool {
 }
 
 func IsNum(char string) bool {
-    match, _ := regexp.MatchString("^[0-9]*$", char)
+    match, _ := regexp.MatchString("^[0-9.]*$", char)
     return match
 }
 
