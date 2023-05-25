@@ -49,3 +49,10 @@ func (s *Inte) Eval(node parser.Stmt) RuntimeVal {
 	return MK_NULL()
 
 }
+
+func BuildInterpreter(Src string) RuntimeVal {
+
+	v := Inte{}
+	return v.Eval(parser.BuildParser(Src))
+
+}

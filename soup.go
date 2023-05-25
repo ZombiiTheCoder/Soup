@@ -1,36 +1,28 @@
 package main
 
-import "Soup/src/lex2"
-// import "Soup/src/lexer"
-import "Soup/src/parser"
-import "Soup/src/interpreter"
-import "fmt"
+import (
+	"Soup/src/interpreter"
+	"fmt"
+	"bufio"
+	"os"
+)
 
-func main(){
-	// for _, v := range lexer.Tokenize("2+5") {
-	// 	fmt.Printf("\nValue: %v\nType: %v\nLocation: \n Line: %v\n Start: %v\n End: %v\n Global: %v\n",
-	// 	v.Value,
-	// 	v.Type,
-	// 	v.Loco.Line,
-	// 	v.Loco.Start,
-	// 	v.Loco.End,
-	// 	v.Loco.Global,
-	// )
-	// }
-
-	for _, v := range lex2.BuildLexer("2+5") {
-		fmt.Printf("\nValue: %v\nType: %v\nLocation: \n Line: %v\n Start: %v\n End: %v\n Global: %v\n",
-		v.Value,
-		v.Type,
-		v.FileLocation.Line,
-		v.FileLocation.Start,
-		v.FileLocation.End,
-		v.FileLocation.Global,
-	)
+func scanner() string {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+	  return scanner.Text()
 	}
 
-	// fmt.Println(parser.BuildParser("2+2"))
-	v := interpreter.Inte{}
-	fmt.Println(parser.BuildParser("2+5"))
-	fmt.Println(v.Eval(parser.BuildParser("2+5")))
+	return ""
+  }
+  
+
+func main(){
+	fmt.Println("Soup v0.0.1")
+	fmt.Println("---------------------")
+	for (true){
+		fmt.Print("Soup > ")
+		text := scanner()
+		fmt.Println(interpreter.BuildInterpreter(text))
+	}
 }

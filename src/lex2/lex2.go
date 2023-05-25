@@ -40,8 +40,6 @@ func (s *Lexer) Tokenize() []token.Token {
 
 	for (s.Ip < len(s.Chars)){
 		
-		println(s.Ip)
-		
 		if (token.IsOneCharToken(s.At())){
 			s.BuildToken(s.At(), token.GetTokenType(s.At()))
 			s.Next()
