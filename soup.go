@@ -22,10 +22,10 @@ func main(){
 		fmt.Printf("\nValue: %v\nType: %v\nLocation: \n Line: %v\n Start: %v\n End: %v\n Global: %v\n",
 		v.Value,
 		v.Type,
-		v.Loco.Line,
-		v.Loco.Start,
-		v.Loco.End,
-		v.Loco.Global,
+		v.FileLocation.Line,
+		v.FileLocation.Start,
+		v.FileLocation.End,
+		v.FileLocation.Global,
 	)
 	}
 

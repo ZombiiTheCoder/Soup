@@ -3,33 +3,33 @@ package parser
 import (
 	"Soup/src/lex2"
 	// "Soup/src/lexer"
-	"Soup/src/lexer/tokens/kind"
-	"Soup/src/lexer/tokens"
+	"Soup/src/lex2/token/kind"
+	"Soup/src/lex2/token"
 	"Soup/src/utils/fmt"
 )
 
 type Parser struct {
 	
 	Ip int
-	Tokens []tokens.Token
+	Tokens []token.Token
 	Src string
 
 }
 
-func (this *Parser) At() tokens.Token{
+func (this *Parser) At() token.Token{
 
 	return this.Tokens[this.Ip]
 
 }
 
-func (this *Parser) Eat() tokens.Token{
+func (this *Parser) Eat() token.Token{
 
 	this.Ip++
 	return this.Tokens[this.Ip-1]
 
 }
 
-func (this *Parser) Expect(ExType kind.TokenKind, err string) tokens.Token{
+func (this *Parser) Expect(ExType kind.TokenType, err string) token.Token{
 
 	this.Ip++
 	last := this.Tokens[this.Ip-1]
