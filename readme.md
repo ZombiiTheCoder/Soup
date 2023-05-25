@@ -3,7 +3,7 @@
 ##### Version 0.0.1 - [Golang](https://github.com/ZombiiTheCoder/SoupLang) Alpha
 ##### Version 0.0.6 - [TypeScript](https://github.com/ZombiiTheCoder/Soup) Alpha
 
-![feature X](./img/Soup.png)
+![feature X](./Soup2.png)
 
 This is a programming language formerly written in TypeScript that can be use for many things but the limitation is that it is currently interpreted and may become compiled in the future.
 
