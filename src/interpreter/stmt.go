@@ -1,8 +1,8 @@
 package interpreter
 
-import "Soup/src/parser"
+import "Soup/src/parser/ast"
 
-func (s *Inte) Eval_program (prg parser.Program) RuntimeVal {
+func (s *Inte) Eval_program (prg ast.Program) RuntimeVal {
 
 	lastEvaluated := MK_NULL()
 

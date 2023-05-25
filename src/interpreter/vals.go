@@ -3,7 +3,7 @@ package interpreter
 // import "Soup/src/parser"
 
 type null *struct{}
-var niz null
+var nul null
 
 type RuntimeVal interface{
 	GetType() string
@@ -19,7 +19,7 @@ func (s NullVal) GetType() string {
 }
 
 func MK_NULL() RuntimeVal{
-	return NullVal{Val: niz}
+	return NullVal{Val: nul}
 }
 
 type NumeralVal struct {

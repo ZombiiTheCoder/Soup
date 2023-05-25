@@ -52,6 +52,7 @@ const (
 	Else
 	Elif
     While
+    Season
 
     // Types
     Numeral

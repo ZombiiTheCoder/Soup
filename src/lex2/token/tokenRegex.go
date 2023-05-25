@@ -50,6 +50,7 @@ func GetTokenType (wrd string) (kind.TokenType) {
         "else": kind.Else,
         "elif": kind.Elif,
         "while": kind.While,
+        "Season": kind.Season,
         "=": kind.Equals,
         "==": kind.DEquals,
         "!=": kind.DNEquals,

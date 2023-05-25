@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"Soup/src/parser/ast"
 	"Soup/src/lex2"
 	// "Soup/src/lexer"
 	"Soup/src/lex2/token/kind"
@@ -47,9 +48,9 @@ func (this *Parser) Not_Eof() bool {
 	
 }
 
-func (this *Parser) ProdAst() Stmt {
+func (this *Parser) ProdAst() ast.Stmt {
 	this.Tokens = lex2.BuildLexer(this.Src)
-	prg := Program{Body: make([]Stmt, 0)}
+	prg := ast.Create_Program(make([]ast.Stmt, 0)).(ast.Program)
 
 	for this.Not_Eof() {
 		prg.Body = append(prg.Body, this.parse_stmt())
@@ -59,26 +60,26 @@ func (this *Parser) ProdAst() Stmt {
 
 }
 
-func (this *Parser) parse_stmt() Stmt {
+func (this *Parser) parse_stmt() ast.Stmt {
 
 	return this.parse_expr()
 
 }
 
-func (this *Parser) parse_expr() Expr {
+func (this *Parser) parse_expr() ast.Expr {
 
 	return this.parse_additive_expr()
 
 }
 
-func (this *Parser) parse_additive_expr() Expr {
+func (this *Parser) parse_additive_expr() ast.Expr {
 
 	left := this.parse_multiplicative_expr()
 	for this.At().Value == "+" || this.At().Value == "-" {
 		op := this.Eat().Value
 		right := this.parse_multiplicative_expr()
 
-		left = CreateBinaryExpr(left, right, op)
+		left = ast.Create_BinaryExpr(left, right, op)
 	
 	}
 
@@ -86,7 +87,7 @@ func (this *Parser) parse_additive_expr() Expr {
 
 }
 
-func (this *Parser) parse_multiplicative_expr() Expr {
+func (this *Parser) parse_multiplicative_expr() ast.Expr {
 
 	left := this.parse_primary_expr()
 
@@ -95,7 +96,7 @@ func (this *Parser) parse_multiplicative_expr() Expr {
 		op := this.Eat().Value
 		right := this.parse_primary_expr()
 
-		left = CreateBinaryExpr(left, right, op)
+		left = ast.Create_BinaryExpr(left, right, op)
 	
 	}
 
@@ -103,16 +104,19 @@ func (this *Parser) parse_multiplicative_expr() Expr {
 
 }
 
-func (this *Parser) parse_primary_expr() Expr {
+func (this *Parser) parse_primary_expr() ast.Expr {
 
 	tk := this.At().Type
 
 	switch tk {
 		case kind.Identifier:
-			return CreateIdentifier(this.Eat().Value)
+			return ast.Create_Identifier(this.Eat().Value)
 
 		case kind.Numeral:
-			return CreateNumericLiteral(this.Eat().Value)
+			return ast.Create_NumericLiteral(this.Eat().Value)
+		
+		case kind.String:
+			return ast.Create_StringLiteral(this.Eat().Value)
 
 		case kind.OpenParen:
 			this.Eat()
@@ -128,11 +132,11 @@ func (this *Parser) parse_primary_expr() Expr {
 			fmt.Prints.ErrorF("Unexpected token found during parsing! %v", this.At())
 	}
 
-	return CreateStringLiteral("")
+	return ast.Create_StringLiteral("")
 
 }
 
-func BuildParser(text string) Stmt {
+func BuildParser(text string) ast.Stmt {
 	prse:=Parser{Src: text}
 	return prse.ProdAst()
 }

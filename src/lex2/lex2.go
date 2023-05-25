@@ -2,6 +2,7 @@ package lex2
 
 import (
 	"Soup/src/utils/fmt"
+	// f "fmt"
 	"Soup/src/lex2/token"
 	"Soup/src/lex2/token/kind"
 )
@@ -21,11 +22,25 @@ type Lexer struct{
 }
 
 func (s *Lexer) At() string {
+	if (s.Ip >= len(s.Chars)){
+		return "\n"
+	}
 	return s.Chars[s.Ip]
 }
 
+func (s *Lexer) Peek() string {
+	ret := ""
+	if (s.Ip+1 < len(s.Chars)){
+		ret = s.Chars[s.Ip+1]
+	}
+
+	return ret
+}
+
 func (s *Lexer) Next() int {
-	s.Ip = s.Ip + 1
+	// if (s.Ip+1 < len(s.Chars)){
+		s.Ip++
+	// }
 	return 0
 }
 
@@ -45,20 +60,48 @@ func (s *Lexer) Tokenize() []token.Token {
 			s.Next()
 		}else{
 
-			if (s.At()+s.Chars[s.Ip+1] == "??"){
+			// Removes Single Line Comments
+			if (s.At()+s.Peek() == "??"){
 				num:=""
 				for (s.At() != "\n"){
 					num+=s.At()
 					s.Next()
 				}
 			}
-
-			if (s.At()+s.Chars[s.Ip+1] == "-?"){
+			
+			/* Removes Block Comments */
+			if (s.At()+s.Peek() == "-?"){
 				num:=""
-				for (s.At()+s.Chars[s.Ip+1] != "?-"){
+				s.Next()
+				s.Next()
+				for (s.At()+s.Peek() != "?-"){
 					num+=s.At()
 					s.Next()
+
+					if (s.Ip >= len(s.Chars)){
+						fmt.Prints.Error("Expected A Combo of ?- For Block Comment")
+					}
 				}
+				s.Next()
+				s.Next()
+			}
+
+			/* Checks For String */
+			if (s.At() == "`"){
+				str:=""
+				s.Next()
+				for (s.At() != "`"){
+					str+=s.At()
+					s.Next()
+
+					if (s.Ip >= len(s.Chars)){
+						fmt.Prints.Error("Expected ` to Close String")
+					}
+				}
+				s.Next()
+
+				s.BuildToken(str, kind.String)
+
 			}
 		
 			if (token.IsNumber(s.At())){
@@ -77,8 +120,11 @@ func (s *Lexer) Tokenize() []token.Token {
 					sym+=s.At()
 					s.Next()
 				}
-				
-				s.BuildToken(sym, token.GetTokenType(s.At()))
+				if (token.GetTokenType(sym) != kind.FKTKN){
+					s.BuildToken(sym, token.GetTokenType(s.At()))
+				}else {
+					fmt.Prints.ErrorF("Invalid Symbol Combo %v", sym)
+				}
 			}
 
 			if (token.IsAlpha(s.At())){
@@ -97,6 +143,10 @@ func (s *Lexer) Tokenize() []token.Token {
 			
 			if (token.IsSkippable(s.At())){
 				s.Next()
+			}
+
+			if (s.At() != "`" && !token.IsSkippable(s.At()) && !token.IsNumber(s.At()) && !token.IsAlpha(s.At()) && !token.IsSymbol(s.At())){
+				fmt.Prints.ErrorF("Invalid Char Found In Source %v", s.At())
 			}
 		}
 	}

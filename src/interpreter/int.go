@@ -6,6 +6,7 @@ import (
 	// "Soup/src/lexer/tokens/kind"
 	// "reflect"
 	"Soup/src/parser"
+	"Soup/src/parser/ast"
 )
 
 type Interp interface {
@@ -13,6 +14,7 @@ type Interp interface {
 	Eval() RuntimeVal
 	Eval_binary_expr() RuntimeVal
 	Eval_numeric_binary_expr() RuntimeVal
+	Eval_nonnumerical_binary_expr() RuntimeVal
 	Eval_program() RuntimeVal
 
 }
@@ -21,9 +23,13 @@ type Inte struct {
 	Interp
 }
 
-func (s *Inte) Eval(node parser.Stmt) RuntimeVal {
+func (s *Inte) Eval(node ast.Stmt) RuntimeVal {
 
 	switch (node.GetType()){
+
+		case "StringLiteral":
+			return MK_STRING(node.GetValue())
+
 		case "NumericLiteral":
 			o, _ := strconv.ParseFloat(string(node.GetValue()), 64)
 			return MK_NUMERAL(o)
@@ -32,11 +38,11 @@ func (s *Inte) Eval(node parser.Stmt) RuntimeVal {
 			return MK_NULL()
 
 		case "Program":
-			return s.Eval_program(node.(parser.Program))
+			return s.Eval_program(node.(ast.Program))
 
 		case "BinaryExpr":
 			// fmt.Prints.PrintLn(node)
-			return s.Eval_binary_expr(node.(parser.BinaryExpr))
+			return s.Eval_binary_expr(node.(ast.BinaryExpr))
 	
 		default:
 			fmt.Prints.ErrorF(
