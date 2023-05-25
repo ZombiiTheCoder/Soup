@@ -5,13 +5,17 @@ import "os"
 
 func (s *Prt) Print(args... any){
 
-	print(args)
+	for _, v := range args {
+		print(v.(string))
+	}
 
 }
 
 func (s *Prt) PrintLn(args... any){
 
-	print(args)
+	for _, v := range args {
+		print(v.(string))
+	}
 	print("\n")
 
 }
@@ -19,7 +23,7 @@ func (s *Prt) PrintLn(args... any){
 func (s *Prt) PrintInd(args... any){
 	
 	for _, v := range args {
-		print(v)
+		print(v.(string))
 		print("\n")
 	}
 

@@ -5,6 +5,7 @@ package test
 
 func Parser() {
 
+	// fmt.Println(parser.BuildParser("2+2"))
 	// for _, v := range lexer.Tokenize("{`test`} -? hello ?- def") {
 	// 	fmt.Printf("\nValue: %v\nType: %v\nLocation: \n Line: %v\n Start: %v\n End: %v\n Global: %v\n",
 	// 		v.Value,

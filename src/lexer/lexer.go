@@ -36,35 +36,35 @@ func Tokenize(text string) []tokens.Token {
 			break
 		}
 
-		if (at() == "?" && chars[ip+1] == "?"){
-			str:=""
-			// strt:=colum
-			next()
-			next()
-			for IsComment(at()) && !EOF && at() != "\n" && at() != "\r" && at() != "\n\r"{
-				str+=at()
-				next()
-			}
-			// end:=colum+1
-			// BULDTKN(str, kind.Comments, strt, end)
-			next()
-			next()
-		}
+		// if (at() == "?" && chars[ip+1] == "?"){
+		// 	str:=""
+		// 	// strt:=colum
+		// 	next()
+		// 	next()
+		// 	for IsComment(at()) && !EOF && at() != "\n" && at() != "\r" && at() != "\n\r"{
+		// 		str+=at()
+		// 		next()
+		// 	}
+		// 	// end:=colum+1
+		// 	// BULDTKN(str, kind.Comments, strt, end)
+		// 	next()
+		// 	next()
+		// }
 		
-		if (at() == "-" && chars[ip+1] == "?"){
-			str:=""
-			// strt:=colum
-			next()
-			next()
-			for IsComment(at()) && !EOF && at() != "?" && chars[ip+1] != "-"{
-				str+=at()
-				next()
-			}
-			// end:=colum+1
-			// BULDTKN(str, kind.Comments, strt, end)
-			next()
-			next()
-		}
+		// if (at() == "-" && chars[ip+1] == "?"){
+		// 	str:=""
+		// 	// strt:=colum
+		// 	next()
+		// 	next()
+		// 	for IsComment(at()) && !EOF && at() != "?" && chars[ip+1] != "-"{
+		// 		str+=at()
+		// 		next()
+		// 	}
+		// 	// end:=colum+1
+		// 	// BULDTKN(str, kind.Comments, strt, end)
+		// 	next()
+		// 	next()
+		// }
 
 		if (OCT(at())){
 			BULDTKN(at(), TKNS(at()), colum, colum)

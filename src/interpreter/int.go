@@ -1,6 +1,7 @@
 package interpreter
 
 import (
+	"Soup/src/utils/fmt"
 	"strconv"
 	// "Soup/src/lexer/tokens/kind"
 	// "reflect"
@@ -9,8 +10,10 @@ import (
 
 type Interp interface {
 
-	eval() RuntimeVal
-	eval_binary_expr() RuntimeVal
+	Eval() RuntimeVal
+	Eval_binary_expr() RuntimeVal
+	Eval_numeric_binary_expr() RuntimeVal
+	Eval_program() RuntimeVal
 
 }
 
@@ -18,7 +21,7 @@ type Inte struct {
 	Interp
 }
 
-func (s *Inte) eval(node parser.Stmt) RuntimeVal {
+func (s *Inte) Eval(node parser.Stmt) RuntimeVal {
 
 	switch (node.GetType()){
 		case "NumericLiteral":
@@ -29,10 +32,20 @@ func (s *Inte) eval(node parser.Stmt) RuntimeVal {
 			return MK_NULL()
 
 		case "Program":
-			return MK_NULL()
+			return s.Eval_program(node.(parser.Program))
 
 		case "BinaryExpr":
-			return s.eval_binary_expr(node)
+			// fmt.Prints.PrintLn(node)
+			return s.Eval_binary_expr(node.(parser.BinaryExpr))
+	
+		default:
+			fmt.Prints.ErrorF(
+				"This AST Node has not yet been setup for interpretation. %v",
+				node,
+			)
+
 	}
+
+	return MK_NULL()
 
 }

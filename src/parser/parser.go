@@ -1,7 +1,8 @@
 package parser
 
 import (
-	"Soup/src/lexer"
+	"Soup/src/lex2"
+	// "Soup/src/lexer"
 	"Soup/src/lexer/tokens/kind"
 	"Soup/src/lexer/tokens"
 	"Soup/src/utils/fmt"
@@ -47,8 +48,7 @@ func (this *Parser) Not_Eof() bool {
 }
 
 func (this *Parser) ProdAst() Stmt {
-	
-	this.Tokens = lexer.Tokenize(this.Src)
+	this.Tokens = lex2.BuildLexer(this.Src)
 	prg := Program{Body: make([]Stmt, 0)}
 
 	for this.Not_Eof() {
@@ -74,9 +74,7 @@ func (this *Parser) parse_expr() Expr {
 func (this *Parser) parse_additive_expr() Expr {
 
 	left := this.parse_multiplicative_expr()
-
 	for this.At().Value == "+" || this.At().Value == "-" {
-		
 		op := this.Eat().Value
 		right := this.parse_multiplicative_expr()
 

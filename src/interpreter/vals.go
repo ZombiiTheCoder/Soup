@@ -5,11 +5,17 @@ package interpreter
 type null *struct{}
 var niz null
 
-type RuntimeVal interface{}
+type RuntimeVal interface{
+	GetType() string
+}
 
 type NullVal struct{
 	RuntimeVal
 	Val null
+}
+
+func (s NullVal) GetType() string {
+	return "NullVal"
 }
 
 func MK_NULL() RuntimeVal{
@@ -21,6 +27,10 @@ type NumeralVal struct {
 	Val float64
 }
 
+func (s NumeralVal) GetType() string {
+	return "NumeralVal"
+}
+
 func MK_NUMERAL(f float64) RuntimeVal{
 	return NumeralVal{Val: f}
 }
@@ -30,6 +40,10 @@ type BooleanVal struct {
 	Val bool
 }
 
+func (s BooleanVal) GetType() string {
+	return "BooleanVal"
+}
+
 func MK_BOOL(f bool) RuntimeVal{
 	return BooleanVal{Val: f}
 }
@@ -37,6 +51,10 @@ func MK_BOOL(f bool) RuntimeVal{
 type StringVal struct {
 	RuntimeVal
 	Val string
+}
+
+func (s StringVal) GetType() string {
+	return "StringVal"
 }
 
 func MK_STRING(f string) RuntimeVal{
