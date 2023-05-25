@@ -15,5 +15,5 @@ func main(){
 	// )
 	// }
 
-	fmt.Println(parser.CreateParser("2"))
+	fmt.Println(parser.BuildParser("2+2"))
 }
