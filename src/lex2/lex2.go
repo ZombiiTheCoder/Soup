@@ -157,7 +157,7 @@ func (s *Lexer) Tokenize() []token.Token {
 				s.Next()
 			}
 
-			if (s.At() != "`" && s.At() != ";" && !token.IsSkippable(s.At()) && !token.IsNumber(s.At()) && !token.IsAlpha(s.At()) && !token.IsSymbol(s.At())){
+			if (s.At() != "`" && token.GetTokenType(s.At()) == kind.FKTKN && !token.IsSkippable(s.At()) && !token.IsNumber(s.At()) && !token.IsAlpha(s.At()) && !token.IsSymbol(s.At())){
 				f.Printf("Invalid Char Found In Source %v\n", s.At())
 				os.Exit(1)
 			}

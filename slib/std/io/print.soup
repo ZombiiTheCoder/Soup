@@ -1,0 +1,30 @@
+-?
+    js.runGlobal(string > code)
+    js.run(string > code)
+
+    ts.runGlobal(string > code)
+    ts.run(string > code)
+
+    go.runGlobal(string > code)
+    go.run(string > code)
+?-
+
+fn GoFmtPrint(Val){
+    if (Type(Val) != "String"){
+        Soup.exit(1)
+    }
+    go.run(`
+        import "fmt"
+        fmt.Print("`+Val+`")
+    `)
+}
+
+fn GoFmtPrintLn(Val){
+    if (Type(Val) != "String"){
+        Soup.exit(1)
+    }
+    go.run(`
+        import "fmt"
+        fmt.Println("`+Val+`")
+    `)
+}

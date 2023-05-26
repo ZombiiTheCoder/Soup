@@ -1,6 +1,7 @@
 package interpreter
 
 import (
+	// "Soup/src/utils/fmt"
 	f "fmt"
 	"os"
 	"strconv"
@@ -52,6 +53,12 @@ func (s *Inte) Eval(node ast.Stmt, env Env) rt.RuntimeVal {
 	
 		case "VarDec":
 			return s.Eval_Var_dec(node.(ast.VarDec), env)
+
+		case "ObjectLiteral":
+			return s.Eval_object_expr(node.(ast.ObjectLiteral), env)
+
+		case "MemberExpr":
+            return s.Eval_member_expr(node.(ast.MemberExpr), env)
 
 		default:
 			f.Printf("This AST Node has not yet been setup for interpretation. %v\n", node)

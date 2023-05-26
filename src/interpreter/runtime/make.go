@@ -19,3 +19,11 @@ func Make_Boolean(val bool) RuntimeVal {
 func Make_String(val string) RuntimeVal {
 	return StringVal{ Val: val }
 }
+
+func Make_ObjectVal(val map[string]RuntimeVal) RuntimeVal {
+	return ObjectVal{Val: val}
+}
+
+func Make_MemberVal(val map[string]RuntimeVal) RuntimeVal {
+	return MemberVal{Val: val}
+}

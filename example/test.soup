@@ -1,10 +1,13 @@
-Gulp `std`
+Gulp `std/io`
+val stdio = io
 
 fn main (){
 
+    go.run(``)
+
     while (true){
         val z = x+y
-        std.io.print(y)
+        stdio.printLn(y)
         x = y
         y = z
     }
