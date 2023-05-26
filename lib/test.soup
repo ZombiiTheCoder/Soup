@@ -1,0 +1,12 @@
+Gulp `std`
+
+fn main (){
+
+    while (true){
+        val z = x+y
+        std.io.print(y)
+        x = y
+        y = z
+    }
+
+}

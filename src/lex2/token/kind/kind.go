@@ -45,17 +45,19 @@ const (
     Comments
 
     // Keywords
-    Def
-	Mal
-	Soup
+    Val
+	Var
+	Fn
     If
 	Else
 	Elif
     While
     Season
+    Gulp
 
     // Types
     Numeral
+    Float
     Identifier
     String
 )

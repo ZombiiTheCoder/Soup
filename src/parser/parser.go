@@ -7,6 +7,8 @@ import (
 	"Soup/src/lex2/token/kind"
 	"Soup/src/lex2/token"
 	"Soup/src/utils/fmt"
+	f "fmt"
+	"os"
 )
 
 type Parser struct {
@@ -17,67 +19,113 @@ type Parser struct {
 
 }
 
-func (this *Parser) At() token.Token{
+func (s *Parser) At() token.Token{
 
-	return this.Tokens[this.Ip]
-
-}
-
-func (this *Parser) Eat() token.Token{
-
-	this.Ip++
-	return this.Tokens[this.Ip-1]
+	return s.Tokens[s.Ip]
 
 }
 
-func (this *Parser) Expect(ExType kind.TokenType, err string) token.Token{
+func (s *Parser) Eat() token.Token{
 
-	this.Ip++
-	last := this.Tokens[this.Ip-1]
+	s.Ip++
+	return s.Tokens[s.Ip-1]
+
+}
+
+func (s *Parser) Expect(ExType kind.TokenType, err string) token.Token{
+
+	s.Ip++
+	last := s.Tokens[s.Ip-1]
 	if (last.Type != ExType){
-		fmt.Prints.ErrorF("Parser Error:\n %v - Expecting %v", err, ExType)
+		f.Printf("Parser Error:\n %v - %v Expecting %v\n", err, last, ExType)
+		os.Exit(1)
 	}
 
 	return last
 
 }
 
-func (this *Parser) Not_Eof() bool {
+func (s *Parser) Not_Eof() bool {
 
-	return this.Tokens[this.Ip].Type != kind.EOF
+	return s.Tokens[s.Ip].Type != kind.EOF
 	
 }
 
-func (this *Parser) ProdAst() ast.Stmt {
-	this.Tokens = lex2.BuildLexer(this.Src)
+func (s *Parser) ProdAst() ast.Stmt {
+	s.Tokens = lex2.BuildLexer(s.Src)
 	prg := ast.Create_Program(make([]ast.Stmt, 0)).(ast.Program)
 
-	for this.Not_Eof() {
-		prg.Body = append(prg.Body, this.parse_stmt())
+	for s.Not_Eof() {
+		prg.Body = append(prg.Body, s.parse_stmt())
 	}
 
 	return prg
 
 }
 
-func (this *Parser) parse_stmt() ast.Stmt {
+func (s *Parser) parse_var_dec() ast.Stmt {
 
-	return this.parse_expr()
+	isConst := (s.Eat().Type == kind.Val)
+	ident := s.Expect(
+		kind.Identifier,
+		"Expected Identifier name following def or var",
+	).Value
+
+	if (s.At().Type == kind.Semicolon) {
+		s.Eat();
+		if (isConst){
+			fmt.Prints.Error("Must Assign Value to Def")
+		}
+
+		return ast.Create_VarDec(isConst, ident, nil)
+	}
+
+	s.Expect(
+		kind.Equals,
+		"Equals Token Expected",
+	)
+
+	dec := ast.Create_VarDec(isConst, ident, s.parse_expr())
+
+	if (s.At().Type == kind.Semicolon) {s.Eat()}
+
+	return dec
 
 }
 
-func (this *Parser) parse_expr() ast.Expr {
+func (s *Parser) parse_stmt() ast.Stmt {
 
-	return this.parse_additive_expr()
+	switch (s.At().Type) {
+
+		case kind.Val:
+			return s.parse_var_dec()
+		case kind.Var:
+			return s.parse_var_dec()
+		default:
+			return s.parse_expr()
+
+	}
 
 }
 
-func (this *Parser) parse_additive_expr() ast.Expr {
+func (s *Parser) parse_expr() ast.Expr {
 
-	left := this.parse_multiplicative_expr()
-	for this.At().Value == "+" || this.At().Value == "-" {
-		op := this.Eat().Value
-		right := this.parse_multiplicative_expr()
+	return s.parse_assign_expr()
+
+}
+
+func (s *Parser) parse_assign_expr() ast.Expr {
+
+	
+
+}
+
+func (s *Parser) parse_additive_expr() ast.Expr {
+
+	left := s.parse_multiplicative_expr()
+	for s.At().Value == "+" || s.At().Value == "-" {
+		op := s.Eat().Value
+		right := s.parse_multiplicative_expr()
 
 		left = ast.Create_BinaryExpr(left, right, op)
 	
@@ -87,14 +135,14 @@ func (this *Parser) parse_additive_expr() ast.Expr {
 
 }
 
-func (this *Parser) parse_multiplicative_expr() ast.Expr {
+func (s *Parser) parse_multiplicative_expr() ast.Expr {
 
-	left := this.parse_primary_expr()
+	left := s.parse_primary_expr()
 
-	for this.At().Value == "/" || this.At().Value == "*" || this.At().Value == "%" {
+	for s.At().Value == "/" || s.At().Value == "*" || s.At().Value == "%" {
 	
-		op := this.Eat().Value
-		right := this.parse_primary_expr()
+		op := s.Eat().Value
+		right := s.parse_primary_expr()
 
 		left = ast.Create_BinaryExpr(left, right, op)
 	
@@ -104,24 +152,27 @@ func (this *Parser) parse_multiplicative_expr() ast.Expr {
 
 }
 
-func (this *Parser) parse_primary_expr() ast.Expr {
+func (s *Parser) parse_primary_expr() ast.Expr {
 
-	tk := this.At().Type
+	tk := s.At().Type
 
 	switch tk {
 		case kind.Identifier:
-			return ast.Create_Identifier(this.Eat().Value)
+			return ast.Create_Identifier(s.Eat().Value)
 
 		case kind.Numeral:
-			return ast.Create_NumericLiteral(this.Eat().Value)
+			return ast.Create_NumericLiteral(s.Eat().Value)
+
+		case kind.Float:
+			return ast.Create_FloatLiteral(s.Eat().Value)
 		
 		case kind.String:
-			return ast.Create_StringLiteral(this.Eat().Value)
+			return ast.Create_StringLiteral(s.Eat().Value)
 
 		case kind.OpenParen:
-			this.Eat()
-			value := this.parse_expr()
-			this.Expect(
+			s.Eat()
+			value := s.parse_expr()
+			s.Expect(
 				kind.ClosedParen,
 				"Unexpected token found inside parenthesised expression. Expected closing parenthesis.",
 			)
@@ -129,8 +180,9 @@ func (this *Parser) parse_primary_expr() ast.Expr {
 			return value
 
 		default:
-			fmt.Prints.ErrorF("Unexpected token found during parsing! %v", this.At())
-	}
+			f.Printf("Unexpected token found during parsing! %v", s.At())
+			os.Exit(1)
+		}
 
 	return ast.Create_StringLiteral("")
 

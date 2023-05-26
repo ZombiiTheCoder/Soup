@@ -1,7 +1,9 @@
 package fmt
 
-import f "fmt"
-import "os"
+import (
+	f "fmt"
+	"os"
+)
 
 func (s *Prt) Print(args... any){
 
@@ -38,7 +40,7 @@ func (s *Prt) Error(str string) {
 
 func (s *Prt) ErrorF(str string, args... any) {
 
-	s.PrintLn(f.Sprintf(str, args))
+	f.Printf(str, args)
 	os.Exit(1)
 
 }

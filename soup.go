@@ -20,9 +20,12 @@ func scanner() string {
 func main(){
 	fmt.Println("Soup v0.0.1")
 	fmt.Println("---------------------")
+	env := interpreter.CreateEnv()
 	for (true){
 		fmt.Print("Soup > ")
 		text := scanner()
-		fmt.Println(interpreter.BuildInterpreter(text))
+		e, a := interpreter.BuildInterpreter(text, env)
+		env = a
+		fmt.Println(e)
 	}
 }

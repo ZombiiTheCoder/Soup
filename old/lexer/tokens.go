@@ -43,7 +43,7 @@ func TKNS (wrd string) (kind.TokenKind) {
     kwrds := map[interface{}]kind.TokenKind {
         false: kind.FKTKN,
         "def": kind.Def,
-        "mal": kind.Mal,
+        "var": kind.Def,
         "soup": kind.Soup,
         "Soup": kind.Soup,
         "if": kind.If,

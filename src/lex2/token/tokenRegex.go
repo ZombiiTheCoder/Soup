@@ -14,8 +14,7 @@ func IsOneCharToken (char string) bool {
     char == "}" ||
     char == ";" ||
     char == "," ||
-    char == ":" ||
-    char == "."){
+    char == ":"){
         return true
     }
 
@@ -42,15 +41,16 @@ func GetTokenType (wrd string) (kind.TokenType) {
 
     kwrds := map[interface{}]kind.TokenType {
         false: kind.FKTKN,
-        "def": kind.Def,
-        "mal": kind.Mal,
-        "soup": kind.Soup,
-        "Soup": kind.Soup,
+        "val": kind.Val,
+        "var": kind.Var,
+        "fn": kind.Fn,
+        "Fn": kind.Fn,
         "if": kind.If,
         "else": kind.Else,
         "elif": kind.Elif,
         "while": kind.While,
         "Season": kind.Season,
+        "Gulp": kind.Gulp,
         "=": kind.Equals,
         "==": kind.DEquals,
         "!=": kind.DNEquals,
@@ -95,12 +95,17 @@ func IsAlphaNum(char string) bool {
 }
 
 func IsNumber(char string) bool {
-    match, _ := regexp.MatchString("^[0-9.]*$", char)
+    match, _ := regexp.MatchString("^[0-9]*$", char)
+    return match
+}
+
+func ValidateFloat(float string) bool {
+    match, _ := regexp.MatchString("^([0-9.]|[.])+[0-9]*$", float)
     return match
 }
 
 func IsSymbol(char string) bool {
-    match, _ := regexp.MatchString(`^[=!&~><+*%-\/]*$`, char)
+    match, _ := regexp.MatchString(`^[=!&~><+*%-\/.]*$`, char)
     return match
 }
 

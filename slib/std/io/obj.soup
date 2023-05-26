@@ -1,0 +1,3 @@
+fn JPrint(Val){
+    eval_js(Val)
+}

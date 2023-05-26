@@ -1,0 +1,7 @@
+Season `io/init.soup`
+
+val std = {
+
+    io: io
+
+}

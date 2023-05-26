@@ -60,6 +60,11 @@ type StringLiteral struct {
 
 type NumericLiteral struct {
 	Expr
+	Valu int64
+}
+
+type FloatLiteral struct {
+	Expr
 	Valu float64
 }
 

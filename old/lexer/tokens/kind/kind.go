@@ -46,7 +46,7 @@ const (
 
     // Keywords
     Def
-	Mal
+	var
 	Soup
     If
 	Else

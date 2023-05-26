@@ -1,8 +1,10 @@
 package lex2
 
 import (
+	"strings"
 	"Soup/src/utils/fmt"
-	// f "fmt"
+	f "fmt"
+	"os"
 	"Soup/src/lex2/token"
 	"Soup/src/lex2/token/kind"
 )
@@ -29,7 +31,7 @@ func (s *Lexer) At() string {
 }
 
 func (s *Lexer) Peek() string {
-	ret := ""
+	ret := " "
 	if (s.Ip+1 < len(s.Chars)){
 		ret = s.Chars[s.Ip+1]
 	}
@@ -79,7 +81,8 @@ func (s *Lexer) Tokenize() []token.Token {
 					s.Next()
 
 					if (s.Ip >= len(s.Chars)){
-						fmt.Prints.Error("Expected A Combo of ?- For Block Comment")
+						f.Println("Expected A Combo of ?- For Block Comment")
+						os.Exit(1)
 					}
 				}
 				s.Next()
@@ -95,7 +98,8 @@ func (s *Lexer) Tokenize() []token.Token {
 					s.Next()
 
 					if (s.Ip >= len(s.Chars)){
-						fmt.Prints.Error("Expected ` to Close String")
+						f.Println("Expected ` to Close String")
+						os.Exit(1)
 					}
 				}
 				s.Next()
@@ -103,15 +107,22 @@ func (s *Lexer) Tokenize() []token.Token {
 				s.BuildToken(str, kind.String)
 
 			}
-		
+
 			if (token.IsNumber(s.At())){
 				num:=""
-				for (token.IsNumber(s.At())){
+				for (token.IsNumber(s.At()) || s.At() == "."){
 					num+=s.At()
 					s.Next()
 				}
+
+				if (strings.Count(num, ".") > 1 || !token.ValidateFloat(num)){
+					fmt.Prints.ErrorF("Invalid Float  %v", num)
+				}else if strings.Count(num, ".") == 0 {
+					s.BuildToken(num, kind.Numeral)
+				}else if strings.Count(num, ".") == 1 && token.ValidateFloat(num) {
+					s.BuildToken(num, kind.Float)
+				}
 				
-				s.BuildToken(num, kind.Numeral)
 			}
 			
 			if (token.IsSymbol(s.At())){
@@ -121,9 +132,10 @@ func (s *Lexer) Tokenize() []token.Token {
 					s.Next()
 				}
 				if (token.GetTokenType(sym) != kind.FKTKN){
-					s.BuildToken(sym, token.GetTokenType(s.At()))
+					s.BuildToken(sym, token.GetTokenType(sym))
 				}else {
-					fmt.Prints.ErrorF("Invalid Symbol Combo %v", sym)
+					f.Printf("Invalid Symbol Combo %v\n", sym)
+					os.Exit(1)
 				}
 			}
 
@@ -145,8 +157,9 @@ func (s *Lexer) Tokenize() []token.Token {
 				s.Next()
 			}
 
-			if (s.At() != "`" && !token.IsSkippable(s.At()) && !token.IsNumber(s.At()) && !token.IsAlpha(s.At()) && !token.IsSymbol(s.At())){
-				fmt.Prints.ErrorF("Invalid Char Found In Source %v", s.At())
+			if (s.At() != "`" && s.At() != ";" && !token.IsSkippable(s.At()) && !token.IsNumber(s.At()) && !token.IsAlpha(s.At()) && !token.IsSymbol(s.At())){
+				f.Printf("Invalid Char Found In Source %v\n", s.At())
+				os.Exit(1)
 			}
 		}
 	}

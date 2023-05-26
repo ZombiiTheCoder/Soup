@@ -5,11 +5,19 @@ func (s Program) GetType() string {
 }
 
 func (s VarDec) GetType() string {
-	return "VarImportDecDec"
+	return "VarDec"
 }
 
 func (s ImportDec) GetType() string {
 	return "ImportDec"
+}
+
+func (s IfStmt) GetType() string {
+	return "IfStmt"
+}
+
+func (s WhileStmt) GetType() string {
+	return "WhileStmt"
 }
 
 func (s AssignExpr) GetType() string {
@@ -50,6 +58,10 @@ func (s StringLiteral) GetType() string {
 
 func (s NumericLiteral) GetType() string {
 	return "NumericLiteral"
+}
+
+func (s FloatLiteral) GetType() string {
+	return "FloatLiteral"
 }
 
 func (s NullLiteral) GetType() string {

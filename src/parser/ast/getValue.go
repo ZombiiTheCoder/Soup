@@ -16,6 +16,10 @@ func (s NumericLiteral) GetValue() string {
 	return fmt.Sprint(s.Valu)
 }
 
+func (s FloatLiteral) GetValue() string {
+	return fmt.Sprint(s.Valu)
+}
+
 func (s NullLiteral) GetValue() string {
 	return "null"
 }

@@ -51,8 +51,13 @@ func Create_StringLiteral (valu string) Expr {
 }
 
 func Create_NumericLiteral (valu string) Expr {
-	valu2, _:=strconv.ParseFloat(valu, 64)
+	valu2, _:=strconv.ParseInt(valu, 10, 64)
 	return NumericLiteral{ Valu: valu2 }
+}
+
+func Create_FloatLiteral (valu string) Expr {
+	valu2, _:=strconv.ParseFloat(valu, 64)
+	return FloatLiteral{ Valu: valu2 }
 }
 
 func Create_NullLiteral () Expr {
