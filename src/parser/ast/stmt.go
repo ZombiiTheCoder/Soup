@@ -21,9 +21,22 @@ type VarDec struct {
 	Valu any
 }
 
-type ImportDec struct {
+type FuncDec struct{
+	Stmt
+	Name string
+	Params []string
+	Body []Stmt
+}
+
+type RetStmt struct{
+	Stmt
+	Valu Expr
+}
+
+type ImpStmt struct{
 	Stmt
 	File string
+	Rel bool
 }
 
 type IfStmt struct{

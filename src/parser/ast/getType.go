@@ -8,8 +8,16 @@ func (s VarDec) GetType() string {
 	return "VarDec"
 }
 
-func (s ImportDec) GetType() string {
-	return "ImportDec"
+func (s FuncDec) GetType() string {
+	return "FuncDec"
+}
+
+func (s RetStmt) GetType() string {
+	return "RetStmt"
+}
+
+func (s ImpStmt) GetType() string {
+	return "ImpStmt"
 }
 
 func (s IfStmt) GetType() string {

@@ -53,7 +53,8 @@ const (
 	Elif
     While
     Season
-    Gulp
+    Use
+    Ret
 
     // Types
     Numeral

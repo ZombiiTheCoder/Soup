@@ -12,5 +12,6 @@ type Location struct {
 type Token struct {
 	Value string
 	Type kind.TokenType
-	FileLocation Location
+	Literal bool
+	Location
 }

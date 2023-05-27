@@ -46,9 +46,9 @@ func (s *Lexer) Next() int {
 	return 0
 }
 
-func (s *Lexer) BuildToken(value string, typee kind.TokenType) int {
+func (s *Lexer) BuildToken(value string, typee kind.TokenType, literal bool) int {
 
-	s.Tokens = append(s.Tokens, token.Token{Value: value, Type: typee})
+	s.Tokens = append(s.Tokens, token.Token{Value: value, Type: typee, Literal:literal})
 	return 0
 
 }
@@ -58,7 +58,7 @@ func (s *Lexer) Tokenize() []token.Token {
 	for (s.Ip < len(s.Chars)){
 		
 		if (token.IsOneCharToken(s.At())){
-			s.BuildToken(s.At(), token.GetTokenType(s.At()))
+			s.BuildToken(s.At(), token.GetTokenType(s.At()), false)
 			s.Next()
 		}else{
 
@@ -104,7 +104,7 @@ func (s *Lexer) Tokenize() []token.Token {
 				}
 				s.Next()
 
-				s.BuildToken(str, kind.String)
+				s.BuildToken(str, kind.String, true)
 
 			}
 
@@ -118,9 +118,9 @@ func (s *Lexer) Tokenize() []token.Token {
 				if (strings.Count(num, ".") > 1 || !token.ValidateFloat(num)){
 					fmt.Prints.ErrorF("Invalid Float  %v", num)
 				}else if strings.Count(num, ".") == 0 {
-					s.BuildToken(num, kind.Numeral)
+					s.BuildToken(num, kind.Numeral, true)
 				}else if strings.Count(num, ".") == 1 && token.ValidateFloat(num) {
-					s.BuildToken(num, kind.Float)
+					s.BuildToken(num, kind.Float, true)
 				}
 				
 			}
@@ -132,9 +132,9 @@ func (s *Lexer) Tokenize() []token.Token {
 					s.Next()
 				}
 				if (token.GetTokenType(sym) != kind.FKTKN){
-					s.BuildToken(sym, token.GetTokenType(sym))
+					s.BuildToken(sym, token.GetTokenType(sym), false)
 				}else {
-					f.Printf("Invalid Symbol Combo %v\n", sym)
+					f.Printf("\nInvalid Symbol Combo %v\n", sym)
 					os.Exit(1)
 				}
 			}
@@ -147,9 +147,9 @@ func (s *Lexer) Tokenize() []token.Token {
 				}
 				
 				if (token.GetTokenType(str) == kind.FKTKN){
-					s.BuildToken(str, kind.Identifier)
+					s.BuildToken(str, kind.Identifier, true)
 				}else{
-					s.BuildToken(str, token.GetTokenType(str))
+					s.BuildToken(str, token.GetTokenType(str), false)
 				}
 			}
 			
@@ -158,13 +158,13 @@ func (s *Lexer) Tokenize() []token.Token {
 			}
 
 			if (s.At() != "`" && token.GetTokenType(s.At()) == kind.FKTKN && !token.IsSkippable(s.At()) && !token.IsNumber(s.At()) && !token.IsAlpha(s.At()) && !token.IsSymbol(s.At())){
-				f.Printf("Invalid Char Found In Source %v\n", s.At())
+				f.Printf("\nInvalid Char Found In Source %v\n", s.At())
 				os.Exit(1)
 			}
 		}
 	}
 
-	s.BuildToken("EOF", kind.EOF)
+	s.BuildToken("EOF", kind.EOF, false)
 
 	return s.Tokens
 

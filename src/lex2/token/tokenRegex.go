@@ -43,14 +43,18 @@ func GetTokenType (wrd string) (kind.TokenType) {
         false: kind.FKTKN,
         "val": kind.Val,
         "var": kind.Var,
+        "use": kind.Use,
+        "Use": kind.Use,
         "fn": kind.Fn,
-        "Fn": kind.Fn,
+        "func": kind.Fn,
+        "function": kind.Fn,
+        "ret": kind.Ret,
+        "return": kind.Ret,
         "if": kind.If,
         "else": kind.Else,
         "elif": kind.Elif,
         "while": kind.While,
         "Season": kind.Season,
-        "Gulp": kind.Gulp,
         "=": kind.Equals,
         "==": kind.DEquals,
         "!=": kind.DNEquals,
@@ -79,6 +83,7 @@ func GetTokenType (wrd string) (kind.TokenType) {
         ";": kind.Semicolon,
         ":": kind.Colon,
         ".": kind.Period,
+        ",": kind.Comma,
     }
 
     return kwrds[wrd]

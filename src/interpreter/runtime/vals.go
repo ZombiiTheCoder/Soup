@@ -1,5 +1,7 @@
 package runtime
 
+import "Soup/src/parser/ast"
+
 type NullVal struct{
 	RuntimeVal
 	Val null
@@ -35,17 +37,23 @@ type MemberVal struct {
 	Val map[string]RuntimeVal
 }
 
-type FuncCall func()
+type FuncCall func(args []RuntimeVal, env Env) RuntimeVal
 
 type NativeFuncVal struct {
 	RuntimeVal
+	Name string
 	Call FuncCall
 }
 
-// type FuncValue struct {
-// 	RuntimeVal
-// 	name string
-// 	params []string
-// 	decEnv Env
-// 	body []parser.Stmt
-// }
+type FuncVal struct {
+	RuntimeVal
+	Name string
+	Params []string
+	DecEnv Env
+	Body []ast.Stmt
+}
+
+type RetVal struct {
+	RuntimeVal
+	Val RuntimeVal
+}

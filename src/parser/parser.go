@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"strings"
 	"Soup/src/parser/ast"
 	"Soup/src/lex2"
 	// "Soup/src/lexer"
@@ -37,7 +38,7 @@ func (s *Parser) Expect(ExType kind.TokenType, err string) token.Token{
 	s.Ip++
 	last := s.Tokens[s.Ip-1]
 	if (last.Type != ExType){
-		f.Printf("Parser Error:\n %v - %v Expecting %v\n", err, last, ExType)
+		f.Printf("\nParser Error:\n %v - %v Expecting %v\n", err, last, ExType)
 		os.Exit(1)
 	}
 
@@ -93,6 +94,59 @@ func (s *Parser) parse_var_dec() ast.Stmt {
 
 }
 
+func (s *Parser) parse_fn_dec() ast.Stmt {
+	s.Eat()
+	name := s.Expect(
+		kind.Identifier,
+		`Name For Function Expected following fn or func`,
+	).Value
+
+	args := s.parse_args()
+	params := make([]string, 0)
+	for _, v := range args {
+		if (v.GetType() != "Identifier") {
+			f.Printf("\nParemeter For Function Must Be Identifier %v\n", v.GetValue())
+		}
+
+		params = append(params, v.(ast.Identifier).Symb)
+	}
+
+	s.Expect(
+		kind.OpenBrace,
+		"Expected Function Body Following Declaration",
+	)
+
+	body := make([]ast.Stmt, 0)
+
+	for (s.At().Type != kind.EOF && s.At().Type != kind.ClosedBrace){
+		body = append(body, s.parse_stmt())
+	}
+
+	s.Expect(
+		kind.ClosedBrace,
+		"Closing Brace Expected For Function Body",
+	)
+
+	fn := ast.Create_Function(name, params, body)
+	return fn
+}
+
+func (s *Parser) parse_ret_stmt() ast.Stmt {
+	s.Eat()
+	Val := s.parse_stmt()
+
+	return ast.Create_Ret_Stmt(Val)
+}
+
+func (s *Parser) parse_Import_stmt() ast.Stmt {
+	s.Eat()
+	ffl := s.Expect(
+		kind.String,
+		"String Expected For Import Value",
+	).Value
+	return ast.Create_Import_Stmt(ffl, !strings.Contains(ffl, "@"))
+}
+
 func (s *Parser) parse_stmt() ast.Stmt {
 
 	switch (s.At().Type) {
@@ -101,6 +155,12 @@ func (s *Parser) parse_stmt() ast.Stmt {
 			return s.parse_var_dec()
 		case kind.Var:
 			return s.parse_var_dec()
+		case kind.Fn:
+			return s.parse_fn_dec()
+		case kind.Ret:
+			return s.parse_ret_stmt()
+		case kind.Use:
+			return s.parse_Import_stmt()
 		default:
 			return s.parse_expr()
 
@@ -250,8 +310,8 @@ func (s *Parser) parse_args_list() []ast.Expr {
 	args = append(args, s.parse_assign_expr())
 
 	for (s.At().Type == kind.Comma){
+		s.Eat()
 		args = append(args, s.parse_assign_expr())
-		// s.Eat()
 	}
 
 	return args
@@ -317,7 +377,7 @@ func (s *Parser) parse_primary_expr() ast.Expr {
 			return value
 
 		default:
-			f.Printf("Unexpected token found during parsing! %v", s.At())
+			f.Printf("\nUnexpected token found during parsing! %v", s.At())
 			os.Exit(1)
 		}
 

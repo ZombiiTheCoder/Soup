@@ -1,7 +1,7 @@
 package runtime
 
 func (s NullVal) GetType () string {
-	return "null"
+	return "NullVal"
 }
 
 func (s NumeralVal) GetType () string {
@@ -30,4 +30,12 @@ func (s MemberVal) GetType () string {
 
 func (s NativeFuncVal) GetType () string {
 	return "NativeFuncVal"
+}
+
+func (s FuncVal) GetType () string {
+	return "FuncVal"
+}
+
+func (s RetVal) GetType () string {
+	return "RetVal"
 }

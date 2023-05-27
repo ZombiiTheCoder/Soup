@@ -1,8 +1,8 @@
-Season `print.soup`
+Use `print.soup`
 
 val io = {
 
-    print: GoFmtPrint
+    print: GoFmtPrint,
     printLn: GoFmtPrintLn
 
 }

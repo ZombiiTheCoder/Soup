@@ -1,9 +1,7 @@
-Gulp `std/io`
+Gulp `@std/io`
 val stdio = io
 
 fn main (){
-
-    go.run(``)
 
     while (true){
         val z = x+y
@@ -13,3 +11,5 @@ fn main (){
     }
 
 }
+
+main()

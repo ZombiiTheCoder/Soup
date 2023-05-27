@@ -10,21 +10,9 @@
 ?-
 
 fn GoFmtPrint(Val){
-    if (Type(Val) != "String"){
-        Soup.exit(1)
-    }
-    go.run(`
-        import "fmt"
-        fmt.Print("`+Val+`")
-    `)
+    print(`f`)
 }
 
 fn GoFmtPrintLn(Val){
-    if (Type(Val) != "String"){
-        Soup.exit(1)
-    }
-    go.run(`
-        import "fmt"
-        fmt.Println("`+Val+`")
-    `)
+    print(`e`)
 }

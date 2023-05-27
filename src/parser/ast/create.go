@@ -10,8 +10,8 @@ func Create_VarDec (cont bool, idnt string, valu any) Stmt {
 	return VarDec{ Cont: cont, Idnt: idnt, Valu: valu }
 }
 
-func Create_ImportDec (file string) Stmt {
-	return ImportDec{ File: file }
+func Create_Import_Stmt (file string, rel bool) Stmt {
+	return ImpStmt{ File: file, Rel:rel }
 }
 
 func Create_AssignExpr (assigner, valu Expr) Expr {
@@ -40,6 +40,14 @@ func Create_UnaryExpr (left Expr, op string, prefix bool) Expr {
 
 func Create_CallExpr (caller Expr, args []Expr) Expr {
 	return CallExpr{ Caller: caller, Args:args }
+}
+
+func Create_Function (name string, params []string, body []Stmt) Stmt {
+	return FuncDec{ Name:name, Params:params, Body:body }
+}
+
+func Create_Ret_Stmt (val Expr) Stmt {
+	return RetStmt{ Valu:val }
 }
 
 func Create_Identifier (symb string) Expr {

@@ -12,6 +12,10 @@ import (
 	"Soup/src/parser/ast"
 )
 
+var StdPath string
+var FilePath string
+var ExeDir string
+
 type Interp interface {
 
 	Eval() rt.RuntimeVal
@@ -26,7 +30,7 @@ type Inte struct {
 	Interp
 }
 
-func (s *Inte) Eval(node ast.Stmt, env Env) rt.RuntimeVal {
+func (s *Inte) Eval(node ast.Stmt, env rt.Env) rt.RuntimeVal {
 
 	switch (node.GetType()){
 
@@ -48,11 +52,25 @@ func (s *Inte) Eval(node ast.Stmt, env Env) rt.RuntimeVal {
 			return s.Eval_program(node.(ast.Program), env)
 
 		case "BinaryExpr":
-			// fmt.Prints.PrintLn(node)
 			return s.Eval_binary_expr(node.(ast.BinaryExpr), env)
 	
 		case "VarDec":
 			return s.Eval_Var_dec(node.(ast.VarDec), env)
+
+		case "FuncDec":
+			return s.Eval_Func_dec(node.(ast.FuncDec), env)
+
+		case "RetStmt":
+			return s.Eval_Ret_stmt(node.(ast.RetStmt), env)
+
+		case "ImpStmt":
+			return s.Eval_Imp_stmt(node.(ast.ImpStmt), env)
+
+		case "AssignExpr":
+			return s.Eval_Assign_Expr(node.(ast.AssignExpr), env)
+
+		case "CallExpr":
+			return s.Eval_call_expr(node.(ast.CallExpr), env);
 
 		case "ObjectLiteral":
 			return s.Eval_object_expr(node.(ast.ObjectLiteral), env)
@@ -61,7 +79,7 @@ func (s *Inte) Eval(node ast.Stmt, env Env) rt.RuntimeVal {
             return s.Eval_member_expr(node.(ast.MemberExpr), env)
 
 		default:
-			f.Printf("This AST Node has not yet been setup for interpretation. %v\n", node)
+			f.Printf("\nThis AST Node has not yet been setup for interpretation. %v Of Type %v\n", node, node.GetType())
 			os.Exit(1)
 
 	}
@@ -70,8 +88,10 @@ func (s *Inte) Eval(node ast.Stmt, env Env) rt.RuntimeVal {
 
 }
 
-func BuildInterpreter(Src string, env Env) (rt.RuntimeVal, Env) {
-
+func BuildInterpreter(exeDir, stdPath, filePath, Src string, env rt.Env) (rt.RuntimeVal, rt.Env) {
+	ExeDir = exeDir
+	StdPath = stdPath
+	FilePath = filePath
 	v := Inte{}
 	return v.Eval(parser.BuildParser(Src), env), env
 
