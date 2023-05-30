@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"path"
 	"path/filepath"
 	"strings"
 )
@@ -73,16 +72,16 @@ func (s *Inte) Eval_Imp_stmt(dec ast.ImpStmt, env rt.Env) rt.RuntimeVal {
 
 	file := ""
 	if !strings.Contains(dec.File, ".soup") {
-		file = path.Join(dec.File, "/init.soup")
+		file = filepath.Join(dec.File, "/init.soup")
 	} else {
 		file = dec.File
 	}
 
 	f := ""
 	if strings.Contains(dec.File, "@") {
-		f = path.Join(StdPath, strings.ReplaceAll(file, "@", ""))
+		f = filepath.Join(StdPath, strings.ReplaceAll(file, "@", ""))
 	} else {
-		f = path.Join(FilePath, file)
+		f = filepath.Join(FilePath, file)
 	}
 
 	var rq rt.RuntimeVal

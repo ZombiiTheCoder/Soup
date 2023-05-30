@@ -1,9 +1,0 @@
-DefIfNot(`DEC_LOOP`, false, false)
-
-if (DEC_LOOP){}else{
-    use `@std/loop/loop.soup`
-}
-
-val loop = {
-    for: FOR_WHILELOOP_STDLIB
-}

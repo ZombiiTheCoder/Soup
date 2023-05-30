@@ -1,0 +1,39 @@
+* == removed
+- == variable
+~ == method
+> == Package
+< == Hidden
+
+Packages:
+    > built-in
+
+        ~ DefIfNot
+        ~ len
+        ~ wait
+        ~ EvalGo
+        ~ remove
+        - true
+        - false
+        * ~ print
+        * ~ println
+
+    > std
+
+        > std.io
+            ~ io.print
+            ~ io.println
+            < ~ GoFmtPrint_STDLIB
+            < ~ GoFmtPrintLn_STDLIB
+        
+        > std.test
+            ~ test.RunIO
+            < ~ RunSTD_IO_TEST
+
+        > std.bindings
+            ~ print
+            ~ println
+        
+        ~ std.io.print
+        ~ std.io.println
+        ~ std.test.RunIO
+        < - DEC_IO

@@ -1,0 +1,7 @@
+DefIfNot(`DEC_IO`, false, false)
+if (DEC_IO){}else{
+    use `@std/io/print.soup`
+}
+
+val print = GoFmtPrint_STDLIB
+var println = GoFmtPrintLn_STDLIB

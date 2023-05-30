@@ -1,13 +1,24 @@
-use `package:`
+?? use `@std/io`
+use `@std/bindings`;
 
-fn test(i) {
-    std.io.println(i)
-    ?? wait(1)
-}
-std.loop.for(10, test)
+var a = 1;
+var b = 1;
 
-var i = 0
-while (i < 10) {
-    std.io.println(i+1)
-    i++
-}
+if (a == b) {
+    println(`a == b`);
+};
+
+foreach()
+
+?? for (var i=0; i<10; i++){
+    
+?? }
+
+?? ?? python
+?? for i in range(2, 3, step=1) { }
+
+?? ?? kotlin
+?? for i in 2...3 step 1 { }
+
+?? ?? C++
+?? for (var i : range(2, 3, 1)) {}

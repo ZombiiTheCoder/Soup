@@ -131,6 +131,7 @@ func (s *Parser) parse_fn_dec() ast.Stmt {
 		kind.ClosedBrace,
 		"Closing Brace Expected For Function Body",
 	)
+	s.Pass_Semi_Colon()
 
 	fn := ast.Create_Function(name, params, body)
 	return fn
@@ -139,6 +140,7 @@ func (s *Parser) parse_fn_dec() ast.Stmt {
 func (s *Parser) parse_ret_stmt() ast.Stmt {
 	s.Eat()
 	Val := s.parse_stmt()
+	s.Pass_Semi_Colon()
 
 	return ast.Create_Ret_Stmt(Val)
 }
@@ -149,6 +151,7 @@ func (s *Parser) parse_Import_stmt() ast.Stmt {
 		kind.String,
 		"String Expected For Import Value",
 	).Value
+	s.Pass_Semi_Colon()
 
 	return ast.Create_Import_Stmt(ffl, !strings.Contains(ffl, "@"))
 }
@@ -163,7 +166,7 @@ func (s *Parser) parse_block_stmt() ast.BlockStmt {
 	}
 
 	s.Expect(kind.ClosedBrace, "Expected Closing Brace For The Block")
-
+	s.Pass_Semi_Colon()
 	return ast.Create_Block_Stmt(
 		Stmts,
 	)
@@ -186,7 +189,7 @@ func (s *Parser) parse_if_stmt() ast.Stmt {
 			alternate = s.parse_block_stmt()
 		}
 	}
-
+	
 	return ast.Create_If_Stmt(
 		condition,
 		consequent,
@@ -235,8 +238,9 @@ func (s *Parser) parse_stmt() ast.Stmt {
 
 func (s *Parser) parse_expr() ast.Expr {
 
-	return s.parse_assign_expr()
-
+	v := s.parse_assign_expr()
+	s.Pass_Semi_Colon()
+	return v
 }
 
 func (s *Parser) parse_assign_expr() ast.Expr {
@@ -441,6 +445,7 @@ func (s *Parser) parse_args() []ast.Expr {
 		kind.ClosedParen,
 		"Missing Close Paren For Args List",
 	)
+	
 	return args
 }
 
@@ -494,19 +499,25 @@ func (s *Parser) parse_primary_expr() ast.Expr {
 
 	switch tk {
 	case kind.Identifier:
-		return ast.Create_Identifier(s.Eat().Value)
+		v := ast.Create_Identifier(s.Eat().Value)
+		return v
 
 	case kind.Numeral:
-		return ast.Create_NumericLiteral(s.Eat().Value)
+		v := ast.Create_NumericLiteral(s.Eat().Value)
+		return v
 
 	case kind.Float:
-		return ast.Create_FloatLiteral(s.Eat().Value)
+		v := ast.Create_FloatLiteral(s.Eat().Value)
+		return v
 
 	case kind.String:
-		return ast.Create_StringLiteral(s.Eat().Value)
+		v := ast.Create_StringLiteral(s.Eat().Value)
+		return v
 
 	case kind.Exclamation, kind.Tilde, kind.Plus, kind.Minus, kind.DPlus, kind.DMinus:
-		return s.parse_unary_expr()
+		v := s.parse_unary_expr()
+		s.Pass_Semi_Colon()
+		return v
 
 	case kind.OpenParen:
 		s.Eat()
@@ -515,11 +526,13 @@ func (s *Parser) parse_primary_expr() ast.Expr {
 			kind.ClosedParen,
 			"Unexpected token found inside parenthesised expression. Expected closing parenthesis.",
 		)
-
+		s.Pass_Semi_Colon()
 		return value
 
 	case kind.OpenBracket:
-		return s.parse_array_expr()
+		v := s.parse_array_expr()
+		s.Pass_Semi_Colon()
+		return v
 
 	default:
 		f.Printf("\nUnexpected token found during parsing! %v", s.At())

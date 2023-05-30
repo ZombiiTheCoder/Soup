@@ -19,6 +19,11 @@ var DEFIFNOT = Func(
 			os.Exit(1)
 		}
 
+		if (args[0].GetType() != "StringVal"){
+			f.Println(`Variable Name Must Be String`)
+			os.Exit(1)
+		}
+
 		if _, ok := scope.Vars[args[0].(StringVal).Val]; !ok {
 			scope.DeclareVar(args[0].(StringVal).Val, args[1], args[2].(BooleanVal).Val)
 		}

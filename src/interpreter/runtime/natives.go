@@ -19,6 +19,7 @@ func DeclareNatives(env Env) Env {
 
 	// DPrint()
 	// DPrintLn()
+	DRemove()
 	DExit()
 	DWait()
 	DLen()

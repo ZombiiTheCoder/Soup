@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"path"
 	"path/filepath"
 )
 
@@ -31,16 +30,11 @@ func readFile() string {
 
 func main() {
 	env := runtime.CreateEnv()
-	qd, _ := filepath.Abs("./pkg/nil.soup")
-	StdPath := filepath.Dir(qd)
 	ex, err := os.Executable()
-	ExeLocation := path.Dir(ex)
-	// {
-	// 	q, _ := filepath.Abs("./packages/nil.soup")
-	// 	Filepath := filepath.Dir(q)
-	// 	_, a := interpreter.BuildInterpreter(ExeLocation, StdPath, Filepath, "use `@stdio`", env)
-	// 	env = a
-	// }
+	realEx, _ := filepath.EvalSymlinks(ex)
+	ExeLocation := filepath.Dir(realEx)
+	StdPath := filepath.Join(ExeLocation, "/pkg/")
+	// fmt.Println(StdPath, ExeLocation)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,9 +51,9 @@ func main() {
 		for {
 			fmt.Print("Soup > ")
 			text := scanner()
-			_, a := interpreter.BuildInterpreter(ExeLocation, StdPath, Filepath, text, env)
+			e, a := interpreter.BuildInterpreter(ExeLocation, StdPath, Filepath, text, env)
 			env = a
-			// fmt.Println(runtime.GetVal(e))
+			fmt.Println(runtime.GetVal(e))
 		}
 	}
 }
