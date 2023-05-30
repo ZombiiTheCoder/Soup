@@ -3,7 +3,7 @@ package runtime
 import f "fmt"
 
 var DPrint = Func(
-	"print",
+	"Native_Print",
 	func(args []RuntimeVal, scope Env) RuntimeVal {
 
 		for _, v := range args {
@@ -15,7 +15,7 @@ var DPrint = Func(
 )
 
 var DPrintLn = Func(
-	"println",
+	"Native_Println",
 	func(args []RuntimeVal, scope Env) RuntimeVal {
 
 		for _, v := range args {

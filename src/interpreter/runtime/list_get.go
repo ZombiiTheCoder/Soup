@@ -26,11 +26,11 @@ var DList_Get = Func(
 
 		switch args[1].GetType() {
 		case "NumeralVal":
-			return args[0].(ArrayVal).Elements[args[1].(NumeralVal).Val]
+			if(1==1){}
 		default:
 			f.Println("Cannot Use Value As Index")
 			os.Exit(1)
 		}
-		return Make_Null()
+		return args[0].(ArrayVal).Elements[args[1].(NumeralVal).Val]
 	},
 )
