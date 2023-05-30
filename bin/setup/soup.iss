@@ -36,6 +36,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "F:\soup_go\bin\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "F:\spoon\bin\spoon.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "F:\soup_go\pkg\*"; DestDir: "{app}\pkg"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
