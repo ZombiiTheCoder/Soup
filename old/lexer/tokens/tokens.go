@@ -1,7 +1,9 @@
 package tokens
 
-import "Soup/src/lexer/tokens/kind"
-import "Soup/src/lexer/tokens/loco"
+import (
+	"Soup/old/lexer/tokens/kind"
+	"Soup/old/lexer/tokens/loco"
+)
 
 type Token struct {
 	Value string

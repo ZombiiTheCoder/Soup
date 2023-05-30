@@ -1,0 +1,1 @@
+"scripts/build" && cls && "bin/Soup.exe" example/zap.soup

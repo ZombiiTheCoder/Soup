@@ -1,0 +1,22 @@
+DefIfNot(`DEC_LOOP`, false, false)
+DefIfNot(`DEC_IO`, false, false)
+if (DEC_IO){}else{
+    use `@std/io/print.soup`
+}
+if (DEC_LOOP){}else{
+    use `@std/loop/loop.soup`
+}
+use `@std/test/io.soup`
+
+val std = {
+    io:{
+        print: GoFmtPrint_STDLIB,
+        println: GoFmtPrintLn_STDLIB
+    },
+    test:{
+        RunIO:RunSTD_IO_TEST
+    },
+    loop:{
+        for: FOR_WHILELOOP_STDLIB,
+    }
+}

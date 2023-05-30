@@ -1,0 +1,13 @@
+use `@std`
+
+fn test(i) {
+    std.io.println(i)
+    ?? wait(1)
+}
+std.loop.for(10, test)
+
+var i = 0
+while (i < 10) {
+    std.io.println(i+1)
+    i++
+}

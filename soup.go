@@ -1,53 +1,60 @@
 package main
 
 import (
-	"Soup/src/interpreter/runtime"
 	"Soup/src/interpreter"
-	"fmt"
+	"Soup/src/interpreter/runtime"
 	"bufio"
-	"os"
+	"fmt"
 	"io/ioutil"
 	"log"
-	"path/filepath"
+	"os"
 	"path"
+	"path/filepath"
 )
 
 func scanner() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-	  return scanner.Text()
+		return scanner.Text()
 	}
 
 	return ""
 }
 
-func readFile() (string) {
+func readFile() string {
 	body, err := ioutil.ReadFile(os.Args[1])
-    if err != nil {
-        log.Fatalf("unable to read file: %v", err)
-    }
+	if err != nil {
+		log.Fatalf("unable to read file: %v", err)
+	}
 	return string(body)
 }
 
-
-func main(){
-	fmt.Println("Soup v0.0.3")
-	fmt.Println("---------------------") 
+func main() {
 	env := runtime.CreateEnv()
-	qd, _ := filepath.Abs("./slib/nil.soup")
+	qd, _ := filepath.Abs("./pkg/nil.soup")
 	StdPath := filepath.Dir(qd)
 	ex, err := os.Executable()
-    ExeLocation := path.Dir(ex)
-    if err != nil { log.Fatal(err) }
-	if (len(os.Args) > 1){
+	ExeLocation := path.Dir(ex)
+	// {
+	// 	q, _ := filepath.Abs("./packages/nil.soup")
+	// 	Filepath := filepath.Dir(q)
+	// 	_, a := interpreter.BuildInterpreter(ExeLocation, StdPath, Filepath, "use `@stdio`", env)
+	// 	env = a
+	// }
+	if err != nil {
+		log.Fatal(err)
+	}
+	if len(os.Args) > 1 {
 		contents := readFile()
 		q, _ := filepath.Abs(os.Args[1])
 		Filepath := filepath.Dir(q)
 		interpreter.BuildInterpreter(ExeLocation, StdPath, Filepath, contents, env)
-	}else{
-		q, _ := filepath.Abs("./slib/nil.soup")
+	} else {
+		fmt.Println("\nSoup v0.0.4")
+		fmt.Println("------------------------")
+		q, _ := filepath.Abs("./pkg/nil.soup")
 		Filepath := filepath.Dir(q)
-		for (true){
+		for {
 			fmt.Print("Soup > ")
 			text := scanner()
 			_, a := interpreter.BuildInterpreter(ExeLocation, StdPath, Filepath, text, env)

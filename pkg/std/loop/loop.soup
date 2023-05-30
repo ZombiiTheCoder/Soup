@@ -1,0 +1,11 @@
+DEC_LOOP = true
+
+fn FOR_WHILELOOP_STDLIB(limit, funct) {
+
+    var i = 0
+    while (i < limit){
+        funct(i)
+        i++
+    }
+
+}

@@ -1,0 +1,5 @@
+use `@std/test/io.soup`
+
+val test = {
+    RunIO:RunSTD_IO_TEST
+}

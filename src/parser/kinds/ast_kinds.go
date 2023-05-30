@@ -1,6 +1,6 @@
 package kinds
 
-type AstNode interface{
+type AstNode interface {
 	AsString() string
 }
 
@@ -25,11 +25,7 @@ type Identifier AstNode
 type String AstNode
 type ObjectLiteral AstNode
 type NumericLiteral AstNode
-
-
-
-
-
+type ListLiteral AstNode
 
 // type AstNode int
 

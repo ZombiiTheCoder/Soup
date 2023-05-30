@@ -1,60 +1,61 @@
 package kind
 
-type TokenKind int64;
+type TokenKind int
+
 const (
-    FKTKN TokenKind = iota
-	EOF 
+	FKTKN TokenKind = iota
+	EOF
 
-    OpenParen
-    ClosedParen
+	OpenParen
+	ClosedParen
 
-    OpenBrace
-    ClosedBrace
+	OpenBrace
+	ClosedBrace
 
-    OpenBracket
-    ClosedBracket
+	OpenBracket
+	ClosedBracket
 
-    GreaterThan
-    LessThan
-    LTEquals
-    GTEquals
+	GreaterThan
+	LessThan
+	LTEquals
+	GTEquals
 
-    Ampersan
-    Star
-    Exclamation
-    
-    Semicolon
-    Colon
-    Percent
-    Slash
-    Period
-    Comma
+	Ampersan
+	Star
+	Exclamation
 
-    Equals
-    DEquals
-    DNEquals
-    TEquals
-    TNEquals
-    
-    Plus
-    Minus
-    DPlus
-    DMinus
-    Tilde
+	Semicolon
+	Colon
+	Percent
+	Slash
+	Period
+	Comma
 
-    Comments
+	Equals
+	DEquals
+	DNEquals
+	TEquals
+	TNEquals
 
-    // Keywords
-    Def
-	var
+	Plus
+	Minus
+	DPlus
+	DMinus
+	Tilde
+
+	Comments
+
+	// Keywords
+	Def
+	Var
 	Soup
-    If
+	If
 	Else
 	Elif
-    While
+	While
 
-    // Types
-    Numeral
-    Identifier
-    String
+	// Types
+	Numeral
+	Identifier
+	String
 )

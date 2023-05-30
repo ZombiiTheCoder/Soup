@@ -1,8 +1,0 @@
-Use `print.soup`
-
-val io = {
-
-    print: GoFmtPrint,
-    printLn: GoFmtPrintLn
-
-}

@@ -1,15 +1,17 @@
-Gulp `@std/io`
-val stdio = io
+use `@std`
 
-fn main (){
+var x = 1
+var y = 0
 
-    while (true){
-        val z = x+y
-        stdio.printLn(y)
-        x = y
-        y = z
+while (true){
+    ?? std.io.PrintLn(x)
+    ?? std.io.PrintLn(y)
+    val z = x + y
+    std.io.println(y)
+    x = y
+    y = z
+    ?? wait(1)
+    if (y == -9223372036854775808){
+        exit()
     }
-
 }
-
-main()

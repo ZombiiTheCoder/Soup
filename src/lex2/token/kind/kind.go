@@ -1,64 +1,67 @@
 package kind
 
-type TokenType int64;
+type TokenType int
+
 const (
-    FKTKN TokenType = iota
-	EOF 
+	FKTKN TokenType = iota
+	EOF
 
-    OpenParen
-    ClosedParen
+	OpenParen
+	ClosedParen
 
-    OpenBrace
-    ClosedBrace
+	OpenBrace
+	ClosedBrace
 
-    OpenBracket
-    ClosedBracket
+	OpenBracket
+	ClosedBracket
 
-    GreaterThan
-    LessThan
-    LTEquals
-    GTEquals
+	LessThan
+	GTEquals
 
-    Ampersan
-    Star
-    Exclamation
-    
-    Semicolon
-    Colon
-    Percent
-    Slash
-    Period
-    Comma
+	LTEquals
+	GreaterThan
 
-    Equals
-    DEquals
-    DNEquals
-    TEquals
-    TNEquals
-    
-    Plus
-    Minus
-    DPlus
-    DMinus
-    Tilde
+	Star
+	Ampersan
+	Exclamation
 
-    Comments
+	Colon
+	Slash
+	Comma
+	Period
+	Percent
+	Semicolon
 
-    // Keywords
-    Val
-	Var
+	Equals
+	DEquals
+	DNEquals
+	PlusEquals
+	MinusEquals
+	DivideEquals
+	PercentEquals
+	MultiplyEquals
+
+	Plus
+	Minus
+	DPlus
+	Tilde
+	DMinus
+
+	Comments
+
+	// Keywords
 	Fn
-    If
+	If
+	Val
+	Var
+	Use
+	Ret
 	Else
-	Elif
-    While
-    Season
-    Use
-    Ret
+	While
 
-    // Types
-    Numeral
-    Float
-    Identifier
-    String
+	// Types
+	Float
+	String
+	Numeral
+	Identifier
 )

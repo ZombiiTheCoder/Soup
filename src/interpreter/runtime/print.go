@@ -4,10 +4,22 @@ import f "fmt"
 
 var DPrint = Func(
 	"print",
-	func (args []RuntimeVal, scope Env) RuntimeVal{
+	func(args []RuntimeVal, scope Env) RuntimeVal {
 
 		for _, v := range args {
-			f.Print(f.Sprint(GetVal(v))+" ")
+			f.Print(f.Sprint(GetVal(v)) + " ")
+		}
+
+		return Make_Null()
+	},
+)
+
+var DPrintLn = Func(
+	"println",
+	func(args []RuntimeVal, scope Env) RuntimeVal {
+
+		for _, v := range args {
+			f.Print(f.Sprint(GetVal(v)) + " ")
 		}
 		f.Print("\n")
 

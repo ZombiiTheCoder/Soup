@@ -7,19 +7,18 @@ import (
 
 type Envi interface{}
 
-type Env struct{
-
+type Env struct {
 	Envi
 	Parent any
-	Vars map[string]RuntimeVal
+	Vars   map[string]RuntimeVal
 	Consts map[string]bool
-
 }
-    //   Syntax Errors      Type Check Errors
-	// 		|					|
-	// Lexer -> Parser -> AST -> Sematic Analyzer -> IR -> Executed
 
-func (s Env) DeclareVar (VarName string, Val RuntimeVal, cons bool) RuntimeVal{
+//   Syntax Errors      Type Check Errors
+// 		|					|
+// Lexer -> Parser -> AST -> Sematic Analyzer -> IR -> Executed
+
+func (s Env) DeclareVar(VarName string, Val RuntimeVal, cons bool) RuntimeVal {
 
 	if _, ok := s.Vars[VarName]; ok {
 		f.Printf("\nCannot Declare Variable %v. Variable is already declared\n", VarName)
@@ -27,17 +26,17 @@ func (s Env) DeclareVar (VarName string, Val RuntimeVal, cons bool) RuntimeVal{
 	}
 
 	s.Vars[VarName] = Val
-	if (cons){
+	if cons {
 		s.Consts[VarName] = true
 	}
 
-	return Val;
+	return Val
 
 }
 
-func (s Env) AssignVar (VarName string, Val RuntimeVal) RuntimeVal {
+func (s Env) AssignVar(VarName string, Val RuntimeVal) RuntimeVal {
 	env := s.Resolve(VarName)
-	if (s.Consts[VarName]){
+	if s.Consts[VarName] {
 		f.Printf("\n%v Cannot Reassign Constant\n", VarName)
 		os.Exit(1)
 	}
@@ -45,13 +44,13 @@ func (s Env) AssignVar (VarName string, Val RuntimeVal) RuntimeVal {
 	return Val
 }
 
-func (s Env) LookUpVar (VarName string) RuntimeVal {
+func (s Env) LookUpVar(VarName string) RuntimeVal {
 	env := s.Resolve(VarName)
 	return env.Vars[VarName]
 }
 
-func (s Env) Resolve (VarName string) Env {
-	
+func (s Env) Resolve(VarName string) Env {
+
 	if _, ok := s.Vars[VarName]; ok {
 		return s
 	}
@@ -66,17 +65,18 @@ func (s Env) Resolve (VarName string) Env {
 }
 
 func CreateEnv() Env {
-	env:=Env{}
-	env.Vars = make(map[string]RuntimeVal )
+	env := Env{}
+	env.Vars = make(map[string]RuntimeVal)
 	env.Consts = make(map[string]bool)
 	env.DeclareVar("true", Make_Boolean(true), true)
 	env.DeclareVar("false", Make_Boolean(false), true)
-	env=DeclareNatives(env)
+	env.DeclareVar("SoupVer", Make_String(`0.0.4`), true)
+	env = DeclareNatives(env)
 	return env
 }
 
 func CreateEnvWithParent(parent Env) Env {
-	env:=CreateEnv()
+	env := CreateEnv()
 	env.Parent = parent
 	return env
 }

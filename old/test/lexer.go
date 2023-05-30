@@ -1,7 +1,9 @@
 package test
 
-import "Soup/src/lexer"
-import "fmt"
+import (
+	"Soup/old/lexer"
+	"fmt"
+)
 
 func Lexer() {
 

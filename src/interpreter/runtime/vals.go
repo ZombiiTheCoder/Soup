@@ -1,8 +1,8 @@
 package runtime
 
-import "Soup/src/parser/ast"
+import "Soup/src/ast"
 
-type NullVal struct{
+type NullVal struct {
 	RuntimeVal
 	Val null
 }
@@ -24,17 +24,18 @@ type BooleanVal struct {
 
 type StringVal struct {
 	RuntimeVal
-	Val string
+	Val         string
+	ObjElements map[string]RuntimeVal
 }
 
 type ObjectVal struct {
 	RuntimeVal
-	Val map[string]RuntimeVal
+	ObjElements map[string]RuntimeVal
 }
 
 type MemberVal struct {
 	RuntimeVal
-	Val map[string]RuntimeVal
+	ObjElements map[string]RuntimeVal
 }
 
 type FuncCall func(args []RuntimeVal, env Env) RuntimeVal
@@ -47,13 +48,19 @@ type NativeFuncVal struct {
 
 type FuncVal struct {
 	RuntimeVal
-	Name string
+	Name   string
 	Params []string
 	DecEnv Env
-	Body []ast.Stmt
+	Body   []ast.Stmt
 }
 
 type RetVal struct {
 	RuntimeVal
 	Val RuntimeVal
+}
+
+type ArrayVal struct {
+	RuntimeVal
+	Elements    []RuntimeVal
+	ObjElements map[string]RuntimeVal
 }
