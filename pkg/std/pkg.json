@@ -1,0 +1,10 @@
+{
+
+    "name": "Standard Lib",
+    "id": "std",
+    "type": "pkg",
+    "description": "This Is The Standard Lib For Soup",
+    "dependencies": []
+
+}
+
