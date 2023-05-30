@@ -17,9 +17,10 @@ func Func(name string, funct FuncCall) func() {
 func DeclareNatives(env Env) Env {
 	Qenv = env
 
+	Dtype()
 	DPrint()
 	DPrintLn()
-	DList_Get()
+	DArray_Get()
 	DRemove()
 	DExit()
 	DWait()
