@@ -9,7 +9,7 @@ var DList_Get = Func(
 	"list_get",
 	func(args []RuntimeVal, scope Env) RuntimeVal {
 
-		if len(args) > 1 {
+		if len(args) > 2 {
 			f.Printf("\nToo Many Values ( %v ) ", len(args))
 			os.Exit(1)
 		}
