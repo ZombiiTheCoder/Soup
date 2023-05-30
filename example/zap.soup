@@ -1,4 +1,4 @@
-use `@std`
+use `package:@std`
 
 fn test(i) {
     std.io.println(i)
