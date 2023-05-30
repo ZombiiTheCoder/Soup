@@ -1,1 +1,1 @@
-"scripts/build" && cls && "bin/Soup.exe" example/zap.soup
+"scripts/build" && cls && "bin/soup.exe" example/zap.soup
