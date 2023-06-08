@@ -47,6 +47,17 @@ func (s *Parser) ParseTernary() ast.Expr {
 		if (s.Current().Type == tokens.Colon) {
 			s.Eat()
 			alternate = s.ParseTernary()
+		}else{
+			utils.Error(
+				"Else for Ternary Expression Missing\nExpected Token %v Found Token %v at line %v column %v\n Token Location %v:%v:%v",
+				":",
+				s.Current().Type,
+				s.Current().Line,
+				s.Current().Column,
+				s.Current().FileName,
+				s.Current().Line,
+				s.Current().Column,
+			)
 		}
 		left = ast.TernaryExpr{Condition: left, Consquent: consequent, Alternate:  alternate}
 
