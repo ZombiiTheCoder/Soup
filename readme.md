@@ -36,9 +36,9 @@ test.soup
 
     use `@std`
 
-    func hello_world(): str{
+    func hello_world(){
 
-        val text : str = `Hello World`
+        val text = `Hello World`
         return text;
 
     }
