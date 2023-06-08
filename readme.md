@@ -34,8 +34,6 @@ Send project to main PKG folder
 test.soup
 ```soup
 
-    use `@std`
-
     func hello_world(){
 
         val text = `Hello World`
@@ -43,6 +41,6 @@ test.soup
 
     }
 
-    std.io.println(hello_world())
+    println(hello_world())
 
 ```
