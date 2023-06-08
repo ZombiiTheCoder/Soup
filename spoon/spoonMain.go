@@ -147,13 +147,16 @@ func Spoon(){
 			fmt.Println(`
 			
 			Get Package From Github
-			spoon.exe get ${github_repo_url}
+			spoon.exe get {github_repo_url}
 
 			Get Project Dependencies
 			spoon.exe get_dep
 
-			Send projct to main PKG folder
+			Send project to main PKG folder
 			spoon.exe add_pkg
+
+			Create base for project
+			spoon.exe init_pkg {name} {desc}
 
 			`)
 			
@@ -186,6 +189,8 @@ func Spoon(){
 			}else if os.Args[1] == "add_pkg" && len(os.Args) == 2 {
 				Filepath, _ := filepath.Abs("./")
 				ToPkg(Filepath)
+			}else if os.Args[1] == "init_pkg" && len(os.Args) == 3 {
+				init_pkg(os.Args[2], os.Args[3])
 			}else {
 				utils.Error("Spoon Command Does Not Exist Or Not All Of The Parameters Were Not Filled")
 			}

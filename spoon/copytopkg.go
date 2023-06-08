@@ -21,7 +21,7 @@ func ToPkg(Filepath string){
 	CopyDir(Filepath, filepath.Join(StdPath, "/"+payload.Id))
 
 	if _, err := os.Stat(filepath.Join(ExeLocation, "temp/")); os.IsNotExist(err){
-		os.Mkdir(filepath.Join(ExeLocation, "temp/"), 0777)
+		os.Mkdir(filepath.Join(ExeLocation, "temp/"), 0700)
 	}
 
 	for _, v := range payload.Dependencies {
