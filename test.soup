@@ -1,0 +1,9 @@
+use "@std/io"
+
+var q = {
+    a:["Hello World", 2]
+}
+
+func e(){
+    return q.a[1]
+}

@@ -1,34 +1,25 @@
 ## Soup
+###### Ver 0.1.1
 
-##### Version 0.0.1 - [Golang](https://github.com/ZombiiTheCoder/SoupLang) Alpha
-##### Version 0.0.6 - [TypeScript](https://github.com/ZombiiTheCoder/Soup) Alpha
+![feature X](./imgs/Soup.png)
 
-<!-- <link rel="stylesheet" href="https://raw.githubusercontent.com/ZombiiTheCoder/SoupLang/master/docs/prism.css">
-<script src="https://raw.githubusercontent.com/ZombiiTheCoder/SoupLang/master/docs/prism.js"></script> -->
-
-![feature X](./Soup2.png)
-
-This is a programming language formerly written in TypeScript that can be use for many things but the limitation is that it is currently interpreted and may become compiled in the future.
-
-The Current Lexer Is On Version 2 hece the name [Lex2](./src/lex2/) no longer requiring [Lexer 1's](./src/lexer/) objects and methods
+This is a programming language written in Go as being the third rewrite that is currently interpreted with a similar syntax to javascript.
 
 ### Building
 
-To build Soup you need to have the prerequisite [Golang](https://go.dev/dl/) installed
+Building this language's core is simple. You need to have [Golang](https://go.dev/dl/) installed and from the main "Soup" folder you need to run "scripts/build" and it will build all the binaries related to soup and add them to the bin folder.
 
-Next after go is installed go to this folder in your terminal and type `go build .` to build a binary for Soup.
+### Code Example
 
-### Installing
-
-Soup will have an installer soon so you can use soup from anywhere.
+test.soup
 ```soup
 
     use `@std`
 
-    fn hello_world(){
+    func hello_world(): str{
 
-        val text = `Hello World`
-        return text
+        val text : str = `Hello World`
+        return text;
 
     }
 

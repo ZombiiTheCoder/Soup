@@ -1,9 +1,0 @@
-DEC_IO = true
-
-fn GoFmtPrint_STDLIB(Val){
-    EvalGo(`import "fmt"`, `fmt.Print("`+Val+`")`)
-}
-
-fn GoFmtPrintLn_STDLIB(Val){
-    GoFmtPrint_STDLIB(Val+`\n`)
-}
