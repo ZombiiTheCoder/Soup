@@ -77,7 +77,7 @@ func (s *Parser) NotEof () bool {
 
 func (s *Parser) Parse () ast.Stmt {
 	
-	program := ast.Program{Body: make([]ast.Stmt, 0)}
+	program := ast.Program{Body: make([]ast.Stmt, 0), Type: "Program"}
 
 	for s.NotEof() {
 		program.Body = append(program.Body, s.ParseStmt())

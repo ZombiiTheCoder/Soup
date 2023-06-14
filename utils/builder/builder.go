@@ -2,8 +2,10 @@ package builder
 
 import (
 	"soup/ast"
+	"soup/interpreter"
 	"soup/lexer"
 	"soup/parser"
+	"soup/runtime"
 	"soup/tokens"
 	"soup/utils"
 	"strings"
@@ -24,4 +26,9 @@ func CreateNewParser(File string) ast.Stmt {
 	Parser := parser.Parser{ I: 0, Tokens: CreateNewLexer(File), FileName: File}
 	return Parser.Parse()
 
+}
+
+func CreateNewIntepreter(File string) runtime.Val {
+	Interpreter := interpreter.Interpreter{Ast: CreateNewParser(File), Env: runtime.CreateEnv()}
+	return Interpreter.Eval(Interpreter.Ast, Interpreter.Env)
 }

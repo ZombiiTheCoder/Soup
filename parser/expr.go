@@ -4,6 +4,7 @@ import (
 	"soup/ast"
 	"soup/tokens"
 	"soup/utils"
+	"strconv"
 )
 
 func (s *Parser) ParseExpr() ast.Expr {
@@ -28,7 +29,12 @@ func (s *Parser) ParseAssign() ast.Expr {
 		op := s.Eat().Value
 		value := s.ParseAssign()
 
-		left = ast.AssignExpr{Assigner: left, Op: op, Val: value }
+		left = ast.AssignExpr{
+			Type: "AssignExpr",
+			Assigner: left,
+			Op: op,
+			Val: value,
+		}
 
 	}
 
@@ -59,7 +65,12 @@ func (s *Parser) ParseTernary() ast.Expr {
 				s.Current().Column,
 			)
 		}
-		left = ast.TernaryExpr{Condition: left, Consquent: consequent, Alternate:  alternate}
+		left = ast.TernaryExpr{
+			Type: "TernaryExpr",
+			Condition: left,
+			Consquent: consequent,
+			Alternate:  alternate,
+		}
 
 	}
 
@@ -74,7 +85,12 @@ func (s *Parser) ParseLogicalOr() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseLogicalAnd()
 
-		left = ast.LogicalExpr{Op: op, Left: left, Right: right}
+		left = ast.LogicalExpr{
+			Type: "LogicalExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 
 	}
 
@@ -88,7 +104,12 @@ func (s *Parser) ParseLogicalAnd() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseBitwiseOr()
 
-		left =  ast.LogicalExpr{Op: op, Left: left, Right: right}
+		left =  ast.LogicalExpr{
+			Type: "LogicalExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 	return left
 }
@@ -99,7 +120,12 @@ func (s *Parser) ParseBitwiseOr() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseBitwiseAnd()
 
-		left = ast.BinaryExpr{Op: op, Left: left, Right: right}
+		left = ast.BinaryExpr{
+			Type: "BinaryExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 	return left
 }
@@ -110,7 +136,12 @@ func (s *Parser) ParseBitwiseAnd() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseEquality()
 
-		left = ast.BinaryExpr{Op: op, Left: left, Right: right}
+		left = ast.BinaryExpr{
+			Type: "BinaryExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 	return left
 }
@@ -122,7 +153,12 @@ func (s *Parser) ParseEquality() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseRelational()
 
-		left = ast.BinaryExpr{Op: op, Left: left, Right: right}
+		left = ast.BinaryExpr{
+			Type: "BinaryExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 	return left
 }
@@ -136,7 +172,12 @@ func (s *Parser) ParseRelational() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseObject()
 
-		left = ast.BinaryExpr{Op: op, Left: left, Right: right}
+		left = ast.BinaryExpr{
+			Type: "BinaryExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 	return left
 }
@@ -153,23 +194,40 @@ func (s *Parser) ParseObject() ast.Expr {
 	for s.NotEof() && s.Current().Type != tokens.ClosedBrace {
 
 		key := s.Expect(tokens.Identifier, "Object key expected").Value
-
 		if s.Current().Type == tokens.Comma {
 			s.Eat()
-			properties = append(properties, ast.Property{Key: key, Val: nil})
+			properties = append(properties, ast.Property{
+				Type: "Property",
+				Key: key,
+				Val: nil,
+			})
 			continue
-		} else if s.Current().Type == tokens.ClosedBrace {
-			properties = append(properties, ast.Property{Key: key, Val: nil})
-			continue
-		}
-
+			} else if s.Current().Type == tokens.ClosedBrace {
+				properties = append(properties, ast.Property{
+					Type: "Property",
+					Key: key,
+					Val: nil,
+				})
+				continue
+			}
+			
 		s.Expect(
 			tokens.Colon,
 			"Missing colon following identifier in Object",
 		)
 		val := s.ParseExpr()
+		
 
-		properties = append(properties, ast.Property{Key: key, Val: val})
+
+		properties = append(properties, ast.Property{
+			Type: "Property",
+			Key: key,
+			Val: val,
+		})
+
+		if s.Current().Type == tokens.Comma {
+			s.Eat()
+		}
 
 	}
 
@@ -181,7 +239,10 @@ func (s *Parser) ParseObject() ast.Expr {
 	}
 
 	s.Expect(tokens.ClosedBrace, "Object missing closing brace.")
-	return ast.ObjectLiteral{Properties: properties}
+	return ast.ObjectLiteral{
+		Type: "ObjectLiteral",
+		Properties: properties,
+	}
 
 }
 
@@ -193,7 +254,12 @@ func (s *Parser) ParseAdditive() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseMultiplicative()
 		
-		left = ast.BinaryExpr{Op: op, Left: left, Right: right}
+		left = ast.BinaryExpr{
+			Type: "BinaryExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 
 	return left
@@ -209,7 +275,12 @@ func (s *Parser) ParseMultiplicative() ast.Expr {
 		op := s.Eat().Value
 		right := s.ParseUnaryPrefix()
 		
-		left = ast.BinaryExpr{Op: op, Left: left, Right: right}
+		left = ast.BinaryExpr{
+			Type: "BinaryExpr",
+			Op: op,
+			Left: left,
+			Right: right,
+		}
 	}
 	return left
 
@@ -239,7 +310,11 @@ func (s *Parser) ParseUnaryPrefix() ast.Expr {
 			)
 		}
 		left = s.ParseUnaryPostfix()
-		return ast.UnaryExpr{Op: op, Argument: left.(ast.Expr), Prefix: true}
+		return ast.UnaryExpr{
+			Type: "UnaryExpr",
+			Op: op,
+			Argument: left.(ast.Expr),
+			Prefix: true}
 	}
 
 	if (left != nil){
@@ -267,7 +342,12 @@ func (s *Parser) ParseUnaryPostfix() ast.Expr {
 				tpe.Column,
 			)
 		}
-		left = ast.UnaryExpr{Op: op, Argument: left, Prefix: false}
+		left = ast.UnaryExpr{
+			Type: "UnaryExpr",
+			Op: op,
+			Argument: left,
+			Prefix: false,
+		}
 	}
 	return left
 }
@@ -287,6 +367,7 @@ func (s *Parser) ParseCallMember() ast.Expr {
 func (s *Parser) ParseCall(caller ast.Expr) ast.Expr {
 
 	callexpr := ast.CallExpr{
+		Type: "CallExpr",
 		Caller: caller,
 		Args: s.ParseArgs(),
 	}
@@ -366,6 +447,7 @@ func (s *Parser) ParseMember() ast.Expr {
 			
 		}
 		obj = ast.MemberExpr{
+			Type: "MemberExpr",
 			Obj: obj,
 			Property: property,
 			Computed: computed,
@@ -397,6 +479,7 @@ func (s *Parser) ParseArray() ast.Expr {
 	s.EatSemi()
 
 	return ast.ArrayExpr{
+		Type: "ArrayExpr",
 		Elements: elements,
 	}
 
@@ -407,16 +490,30 @@ func (s *Parser) ParsePrimary() ast.Expr {
 	switch s.Current().Type{
 
 	case tokens.Identifier:
-		return ast.Identifier{Symb: s.Eat().Value}
+		return ast.Identifier{
+		Type: "Identifier",
+		Symb: s.Eat().Value,
+	}
 
 	case tokens.Number:
-		return ast.Identifier{Symb: s.Eat().Value}
+		q, _ := strconv.ParseInt(s.Eat().Value, 10, 64)
+		return ast.IntegerLiteral{
+		Type: "IntegerLiteral",
+		Valu: q,
+	}
 
 	case tokens.Float:
-		return ast.Identifier{Symb: s.Eat().Value}
+		q, _ := strconv.ParseFloat(s.Eat().Value, 64)
+		return ast.FloatLiteral{
+		Type: "FloatLiteral",
+		Valu: q,
+	}
 
 	case tokens.String:
-		return ast.Identifier{Symb: s.Eat().Value}
+		return ast.StringLiteral{
+		Type: "StringLiteral",
+		Valu: s.Eat().Value,
+	}
 	
 	case tokens.OpenParen:
 		s.Eat()

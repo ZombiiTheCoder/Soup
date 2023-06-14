@@ -2,74 +2,44 @@ package ast
 
 type VarDec struct {
 	Stmt
+	Type   string
 	NotMut bool
 	Name   string
-	Val    any
-}
-
-func (s VarDec) GetType() string {
-	return "VarDec"
+	Value  any
 }
 
 type FuncDec struct {
 	Stmt
+	Type   string
 	Name   string
 	Params []string
-	Body   BlockStmt
-}
-
-func (s FuncDec) GetType() string {
-	return "FuncDec"
+	Body   []Stmt
 }
 
 type ImpStmt struct {
 	Stmt
+	Type string
 	File string
 	Rel  bool
 }
 
-func (s ImpStmt) GetType() string {
-	return "ImpStmt"
-}
-
-type ForStmt struct {
-	Stmt
-	Init   any
-	Test   any
-	Update any
-	Body   BlockStmt
-}
-
-func (s ForStmt) GetType() string {
-	return "ForStmt"
-}
-
 type IfStmt struct {
 	Stmt
+	Type      string
 	Test      Expr
-	Consquent BlockStmt
+	Consquent []Stmt
 	Alternate any
-}
-
-func (s IfStmt) GetType() string {
-	return "IfStmt"
 }
 
 type WhileStmt struct {
 	Stmt
+	Type      string
 	Test      Expr
-	Consquent BlockStmt
-}
-
-func (s WhileStmt) GetType() string {
-	return "WhileStmt"
+	Consquent []Stmt
 }
 
 type ReturnStmt struct {
 	Stmt
+	Type  string
 	Value Expr
-}
-
-func (s ReturnStmt) GetType() string {
-	return "ReturnStmt"
 }

@@ -6,28 +6,20 @@ type Node interface {
 
 type Stmt interface {
 	Node
-	GetType() string
 }
 
 type Expr interface {
 	Stmt
-	GetType() string
 }
 
 type BlockStmt struct {
 	Stmt
+	Type string
 	Body []Stmt
-}
-
-func (s BlockStmt) GetType() string {
-	return "BlockStmt"
 }
 
 type Program struct {
 	Stmt
+	Type string
 	Body []Stmt
-}
-
-func (s Program) GetType() string {
-	return "Program"
 }

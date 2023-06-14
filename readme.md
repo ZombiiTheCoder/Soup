@@ -36,8 +36,8 @@ test.soup
 
     func hello_world(){
 
-        val text = `Hello World`
-        return text;
+        val text = "Hello World"
+        return text
 
     }
 

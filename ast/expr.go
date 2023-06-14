@@ -2,91 +2,68 @@ package ast
 
 type AssignExpr struct {
 	Expr
+	Type     string
 	Assigner Expr
 	Val      Expr
 	Op       string
 }
 
-func (s AssignExpr) GetType() string {
-	return "AssignExpr"
-}
-
 type TernaryExpr struct {
 	Expr
+	Type      string
 	Condition Expr
 	Consquent Expr
 	Alternate any
 }
 
-func (s TernaryExpr) GetType() string {
-	return "TernaryExpr"
-}
-
 type LogicalExpr struct {
 	Expr
+	Type  string
 	Op    string
 	Left  Expr
 	Right Expr
-}
-
-func (s LogicalExpr) GetType() string {
-	return "LogicalExpr"
 }
 
 type BinaryExpr struct {
 	Expr
+	Type  string
 	Op    string
 	Left  Expr
 	Right Expr
 }
 
-func (s BinaryExpr) GetType() string {
-	return "BinaryExpr"
-}
-
 type UnaryExpr struct {
 	Expr
+	Type     string
 	Op       string
 	Prefix   bool
 	Argument Expr
 }
 
-func (s UnaryExpr) GetType() string {
-	return "UnaryExpr"
-}
-
 type CallExpr struct {
 	Expr
+	Type   string
 	Caller Expr
 	Args   []Expr
 }
 
-func (s CallExpr) GetType() string {
-	return "CallExpr"
-}
-
 type MemberExpr struct {
 	Expr
+	Type     string
 	Computed bool
 	Property Expr
 	Obj      Expr
 }
 
-func (s MemberExpr) GetType() string {
-	return "MemberExpr"
-}
-
 type ArrayExpr struct {
 	Expr
+	Type     string
 	Elements []Expr
-}
-
-func (s ArrayExpr) GetType() string {
-	return "ArrayExpr"
 }
 
 type Property struct {
 	Expr
-	Key string
-	Val any
+	Type string
+	Key  string
+	Val  any
 }

@@ -61,7 +61,7 @@ const (
 	Else     = "else"
 	While    = "while"
 	Return   = "return"
-	Function = "func"
+	Function = "function"
 
 	// Types
 	Float      = "float"
@@ -81,8 +81,8 @@ var TokenRecord = map[string]TokenType{
 	"use": Use,
 
 	// Function Return Pair
-	"func":   Function,
-	"return": Return,
+	"fn":  Function,
+	"ret": Return,
 
 	// Conditional
 	"if":    If,

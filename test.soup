@@ -1,9 +1,24 @@
-use "@std/io"
-
 var q = {
-    a:["Hello World", 2]
+    a:["Hello World", 2],
+    b:["Hello World2", 2],
+    c:{
+        d:{
+            e:"Hello World Sumpreme"
+        }
+    }
 }
 
-func e() {
-    return q.a[1]
-}
+var a = ["Hello World", 2]
+
+q.a[0]
+
+?? q.c.d.e
+?? q.c["d"].e
+?? q.c.d["e"]
+?? q["c"].d.e
+?? q["c"]["d"].e
+?? q["c"].d["e"]
+?? q["c"]["d"]["e"]
+
+?? q["c"]["d"]["e"]
+?? q.c["d"].e
