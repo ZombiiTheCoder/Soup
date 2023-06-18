@@ -1,77 +1,47 @@
 package runtime
 
 import (
-	"soup/utils"
+	"soup/ast"
 	"strings"
 )
 
-type Env struct {
-	Parent any
-	Vars   map[string]Val
-	Consts map[string]bool
-}
+type RTInterpreter interface {
+	Eval(node ast.Node, env Env) Val
 
-//   Syntax Errors      Type Check Errors
-// 		|					|
-// Lexer -> Parser -> AST -> Sematic Analyzer -> IR -> Executed
+	EvalProgram(node ast.Program, env Env) Val
 
-func (s Env) DeclareVar(VarName string, Value Val, cons bool) Val {
+	EvalUnary(node ast.UnaryExpr, env Env) Val
+	EvalTernary(node ast.TernaryExpr, env Env) Val
+	EvalLogical(node ast.LogicalExpr, env Env) Val
 
-	if _, ok := s.Vars[VarName]; ok {
-		utils.Error("Cannot Declare Variable %v. Variable is already declared", VarName)
-	}
+	EvalBinaryTypes(node ast.BinaryExpr, env Env) Val
+	EvalBinaryAdditive(left ast.Expr, right ast.Expr, op string, env Env) Val
+	EvalBinaryBitwise(left ast.Expr, right ast.Expr, op string, env Env) Val
+	EvalBinaryEquality(left ast.Expr, right ast.Expr, op string, env Env) Val
+	EvalBinaryRelational(left ast.Expr, right ast.Expr, op string, env Env) Val
+	EvalBinaryConcatenation(left ast.Expr, right ast.Expr, op string, env Env) Val
+	
+	EvalAssign(node ast.AssignExpr, env Env) Val
+	EvalVarDec(node ast.VarDec, env Env) Val
+	EvalFunction(node ast.FuncDec, env Env) Val
+	EvalReturn(node ast.ReturnStmt, env Env) Val
+	EvalImport(node ast.ImpStmt, env Env) Val
 
-	s.Vars[VarName] = Value
-	if cons {
-		s.Consts[VarName] = true
-	}
+	EvalCall(node ast.Node, env Env) Val
+	EvalObject(node ast.Node, env Env) Val
 
-	return Value
+	EvalMemberTypes(node ast.MemberExpr, env Env) Val
+	EvalMember(node ast.MemberExpr, env Env) Val
+	EvalArrayObj(node ast.MemberExpr, env Env) Val
+	FixStringObj(node String, keys []string, env Env) Val
 
-}
+	EvalBlock(node ast.BlockStmt, env Env) Val
+	EvalIf(node ast.IfStmt, env Env) Val
+	EvalWhile(node ast.WhileStmt, env Env) Val
+	EvalArray(node ast.ArrayExpr, env Env) Val
+	EvalProperty(node ast.Property, env Env) Val
 
-func (s Env) AssignVar(VarName string, Value Val) Val {
-	env := s.Resolve(VarName)
-	if s.Consts[VarName] {
-		utils.Error("%v Cannot Reassign Constant", VarName)
-	}
-	env.Vars[VarName] = Value
-	return Value
-}
-
-func (s Env) LookUpVar(VarName string) Val {
-	env := s.Resolve(VarName)
-	return env.Vars[VarName]
-}
-
-func (s Env) Resolve(VarName string) Env {
-
-	if _, ok := s.Vars[VarName]; ok {
-		return s
-	}
-
-	if s.Parent == nil {
-		utils.Error("%v Does Not Exist", VarName)
-	}
-
-	return s.Parent.(Env).Resolve(VarName)
-
-}
-
-func CreateEnv() Env {
-	env := Env{}
-	env.Vars = make(map[string]Val)
-	env.Consts = make(map[string]bool)
-	env.DeclareVar("true", Bool{Value: true, Type: "Bool"}, true)
-	env.DeclareVar("false", Bool{Value: false, Type: "Bool"}, true)
-	env = Declare(env)
-	return env
-}
-
-func CreateEnvWithParent(parent Env) Env {
-	env := CreateEnv()
-	env.Parent = parent
-	return env
+	EvalIdentifier(node ast.Identifier, env Env) Val
 }
 
 func IsTrue(val Val) bool{

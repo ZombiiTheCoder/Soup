@@ -1,5 +1,5 @@
 ## Soup
-###### Ver 0.1.1
+###### Ver 0.1.2
 
 ![feature X](./imgs/Soup.png)
 
@@ -41,6 +41,6 @@ test.soup
 
     }
 
-    println(hello_world())
+    print(hello_world())
 
 ```

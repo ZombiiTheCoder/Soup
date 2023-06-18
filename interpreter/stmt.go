@@ -6,7 +6,6 @@ import (
 	"soup/lexer"
 	"soup/parser"
 	"soup/runtime"
-	"soup/utils"
 	"strings"
 )
 
@@ -16,10 +15,6 @@ func (s *Interpreter) EvalProgram(node ast.Program, env runtime.Env) runtime.Val
 
 	for _, v := range node.Body {
 		lastEval = s.Eval(v, env)
-		
-		if lastEval.GetType() == "ReturnStmt" {
-			utils.Error("Toplevel Return Not Supported")
-		}
 	}
 
 	return lastEval
@@ -28,13 +23,11 @@ func (s *Interpreter) EvalProgram(node ast.Program, env runtime.Env) runtime.Val
 
 func (s *Interpreter) EvalVarDec(node ast.VarDec, env runtime.Env) runtime.Val {
 
-	var value runtime.Val = runtime.Null{Value: "null", Type: "Null"}
-
 	if node.Value != nil {
-		value = s.Eval(node.Value.(ast.Stmt), env)
+		value := s.Eval(node.Value.(ast.Stmt), env)
+		return env.DeclareVar(node.Name, value, node.NotMut)
 	}
-
-	return env.DeclareVar(node.Name, value, node.NotMut)
+	return env.DeclareVar(node.Name, runtime.Null{Value: "null", Type: "Null"}, node.NotMut)
 
 }
 
@@ -53,11 +46,14 @@ func (s *Interpreter) EvalFunction(node ast.FuncDec, env runtime.Env) runtime.Va
 
 }
 
-func (s *Interpreter) EvalReturn(node ast.ReturnStmt, env runtime.Env) runtime.Val {
+// func (s *Interpreter) EvalReturn(node ast.ReturnStmt, env runtime.Env) runtime.Val {
 
-	return runtime.Return{Value: s.Eval(node.Value, env), Type: "Return"}
+// 	// fmt.Println(s.Eval(node.Value, env))
+// 	// v:=s.Eval(node.Value, env)
+// 	// v=v.SetReturned(true)
+// 	return node.Value
 
-}
+// }
 
 func (s *Interpreter) EvalImport(node ast.ImpStmt, env runtime.Env) runtime.Val {
 
@@ -83,7 +79,7 @@ func (s *Interpreter) EvalImport(node ast.ImpStmt, env runtime.Env) runtime.Val 
 
 func (s *Interpreter) EvalBlock(node ast.BlockStmt, env runtime.Env) runtime.Val {
 
-	newEnv := runtime.CreateEnvWithParent(env)
+	newEnv := CreateEnvWithParent(env)
 
 	for _, v := range node.Body {
 		s.Eval(v, newEnv)
@@ -95,13 +91,30 @@ func (s *Interpreter) EvalBlock(node ast.BlockStmt, env runtime.Env) runtime.Val
 
 func (s *Interpreter) EvalIf(node ast.IfStmt, env runtime.Env) runtime.Val {
 	condition := s.Eval(node.Test, env)
+	env2:=CreateEnvWithParent(env)
 	if runtime.IsTrue(condition) {
 		for _, v := range node.Consquent {
-			s.Eval(v, env)
+			s.Eval(v, env2)
 		}
 	}else if node.Alternate != nil{
 		for _, v := range node.Alternate.([]ast.Stmt) {
-			s.Eval(v, env)
+			s.Eval(v, env2)
+		}
+	}
+
+	return runtime.Null{Value: "null", Type: "Null"}
+
+}
+
+func (s *Interpreter) EvalWhile(node ast.WhileStmt, env runtime.Env) runtime.Val {
+	condition := s.Eval(node.Test, env)
+	for runtime.IsTrue(condition) {
+		env2:=CreateEnvWithParent(env)
+		for _, v := range node.Consquent {
+			s.Eval(v, env2)
+		}
+		if !runtime.IsTrue(s.Eval(node.Test, env2)){
+			break
 		}
 	}
 

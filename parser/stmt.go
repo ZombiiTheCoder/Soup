@@ -40,12 +40,13 @@ func (s *Parser) ParseVarDec() ast.Stmt {
 		tokens.Identifier,
 		"Identifier Required For Declaring Variable",
 	).Value
+
 	if s.Current().Type == tokens.Semicolon {
 		s.Eat()
 		if NotMut {
 			utils.Error("Value Must Be Assigned To Constant")
 		}
-
+		
 		return ast.VarDec{
 			Type: "VarDec",
 			Name: id,

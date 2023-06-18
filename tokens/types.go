@@ -94,10 +94,10 @@ var TokenRecord = map[string]TokenType{
 	"!=": NEquals,
 
 	// Relational
-	">":  Equals,
-	"<":  Equals,
-	">=": Equals,
-	"<=": Equals,
+	">":  GreaterThan,
+	"<":  LessThan,
+	">=": GTEquals,
+	"<=": LTEquals,
 
 	// Assignment
 	"=":  Equals,
@@ -146,4 +146,7 @@ var TokenRecord = map[string]TokenType{
 	",": Comma,
 	"{": OpenBrace,
 	"}": ClosedBrace,
+
+	// Semicolon
+	";": Semicolon,
 }

@@ -32,6 +32,10 @@ func (s NativeFunc) GetType() string {
 	return s.Type
 }
 
+func (s NativeMethod) GetType() string {
+	return s.Type
+}
+
 func (s Func) GetType() string {
 	return s.Type
 }
