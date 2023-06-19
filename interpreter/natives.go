@@ -99,6 +99,7 @@ func CreateEnv() runtime.Env {
 	env.DeclareVar("type", runtime.NativeFunc{Type: "NativeFunc", Name: "type", Call: Func_Type}, true)
 	env.DeclareVar("exit", runtime.NativeFunc{Type: "NativeFunc", Name: "exit", Call: Func_Exit}, true)
 	env.DeclareVar("append", runtime.NativeFunc{Type: "NativeFunc", Name: "append", Call: Func_Append}, true)
+	env.DeclareVar("input", runtime.NativeFunc{Type: "NativeFunc", Name: "input", Call: Func_TerminalInput }, true)
 	env = native_functions.DeclareNatives(env)
 	return env
 }

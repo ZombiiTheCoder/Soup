@@ -83,7 +83,8 @@ func (s *Interpreter) EvalCall(node ast.CallExpr, env runtime.Env) runtime.Val {
 			return runtime.Null{Type: "Null", Value: "null"}
 
 		case "NativeFunc":
-			return function.(runtime.NativeFunc).Call(node.Args, args, env)
+			res := function.(runtime.NativeFunc).Call(node.Args, args, env)
+			return res
 		
 		case "NativeMethod":
 			// fmt.Println(node)

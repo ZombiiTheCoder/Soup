@@ -14,7 +14,9 @@ func (s *Interpreter) EvalProgram(node ast.Program, env runtime.Env) runtime.Val
 	var lastEval runtime.Val = runtime.Null{Value: "null", Type: "Null"}
 
 	for _, v := range node.Body {
-		lastEval = s.Eval(v, env)
+		if !pause {
+			lastEval = s.Eval(v, env)
+		}
 	}
 
 	return lastEval
@@ -110,8 +112,13 @@ func (s *Interpreter) EvalWhile(node ast.WhileStmt, env runtime.Env) runtime.Val
 	condition := s.Eval(node.Test, env)
 	for runtime.IsTrue(condition) {
 		env2:=CreateEnvWithParent(env)
-		for _, v := range node.Consquent {
-			s.Eval(v, env2)
+
+		if !pause {
+			for _, v := range node.Consquent {
+				if !pause {
+					s.Eval(v, env2)
+				}
+			}
 		}
 		if !runtime.IsTrue(s.Eval(node.Test, env2)){
 			break

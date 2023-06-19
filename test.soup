@@ -85,4 +85,4 @@ fn format_array(arg) {
 ??     i++
 ?? }
 
-test(format_array([listify("hi"), listify("hi")]))
+test(format_array([listify("hi"), listify("hi")]), format_array([listify("hi"), listify("hi")]))

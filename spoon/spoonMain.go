@@ -77,7 +77,7 @@ func CopyDir(src string, dest string) error {
 }
 
 type Dep struct {
-	Pkgurl string `pkgurl:"id"`
+	Pkgurl string `pkg:"id"`
 }
 
 type Data struct {

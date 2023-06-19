@@ -6,6 +6,7 @@ import (
 
 type Val interface {
 	GetType() string
+	GetValue() any
 }
 
 type Null struct {

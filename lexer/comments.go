@@ -11,6 +11,7 @@ func (s *Lexer) InlineComments() {
 		s.Eat()
 		s.Eat()
 		for s.At() != "\n" {
+		if s.At() == "\n" { s.Line++; s.Column = 1 }
 			comment += s.At()
 			s.Eat()
 		}
@@ -24,7 +25,8 @@ func (s *Lexer) BlockComments() {
 		comment := ""
 		s.Eat()
 		s.Eat()
-		for s.At() != "?-" {
+		for s.At()+s.Peek() != "?-"{
+		if s.At() == "\n" { s.Line++; s.Column = 1 }
 			comment += s.At()
 			s.Eat()
 			if s.I >= len(s.Chars) {
@@ -38,6 +40,8 @@ func (s *Lexer) BlockComments() {
 				)
 			}
 		}
+		s.Eat()
+		s.Eat()
 	}
 
 }

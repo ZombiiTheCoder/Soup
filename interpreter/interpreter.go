@@ -5,7 +5,10 @@ import (
 	"soup/ast"
 	"soup/runtime"
 	"soup/utils"
+	"strings"
 )
+
+var pause = false
 
 type Interpreter struct {
 	runtime.RTInterpreter
@@ -26,14 +29,8 @@ func (s *Interpreter) Eval(node ast.Stmt, env runtime.Env) runtime.Val {
 			nargs := make([]any, 0)
 			for _, v := range args {
 				switch v.GetType() {
-				case "Int":
-					nargs = append(nargs, fmt.Sprintf("%v", v.(runtime.Int).Value))
-				case "String":
-					nargs = append(nargs, v.(runtime.String).Value)
-				case "Bool":
-					nargs = append(nargs, fmt.Sprintf("%v", v.(runtime.Bool).Value))
-				case "Null":
-					nargs = append(nargs, v.(runtime.Null).Value)
+				case "Int", "String", "Bool", "Null":
+					nargs = append(nargs, v.GetValue())
 				default:
 					nargs = append(nargs, fmt.Sprintf("%v", v))
 				}
@@ -42,6 +39,26 @@ func (s *Interpreter) Eval(node ast.Stmt, env runtime.Env) runtime.Val {
 				Type: "StringLiteral",
 				Valu: fmt.Sprintf(node.(ast.StringLiteral).Valu, nargs...),
 			}, scope)
+		}}
+		string_vals["contains"] = runtime.NativeFunc{Type: "NativeFunc", Name:"format", Call: func(olargs []ast.Expr, args []runtime.Val, scope runtime.Env) runtime.Val {
+			
+			if len(args) > 1 || len(args) < 1 {
+				utils.Error("There must be one argument in string.contains(any) function")
+			}
+
+			nargs := make([]any, 0)
+			for _, v := range args {
+				switch v.GetType() {
+				case "Int", "String", "Bool", "Null":
+					nargs = append(nargs, v.GetValue())
+				default:
+					nargs = append(nargs, fmt.Sprintf("%v", v))
+				}
+			}
+			return runtime.Bool{
+				Type: "bool",
+				Value: strings.Contains(node.(ast.StringLiteral).Valu, fmt.Sprintf("%v", nargs...)),
+			}
 		}}
 
 		return runtime.String{

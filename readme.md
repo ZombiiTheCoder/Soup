@@ -1,5 +1,5 @@
 ## Soup
-###### Ver 0.1.2
+###### Ver 0.1.3
 
 ![feature X](./imgs/Soup.png)
 

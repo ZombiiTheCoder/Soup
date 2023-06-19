@@ -530,9 +530,9 @@ func (s *Parser) ParsePrimary() ast.Expr {
 
 	default:
 		utils.Error("Invalid Token Found During Parsing %v\n %v:%v:%v", s.Current(),
-		s.Tokens[s.I-1].FileName,
-		s.Tokens[s.I-1].Line,
-		s.Tokens[s.I-1].Column,
+		s.Tokens[s.I].FileName,
+		s.Tokens[s.I].Line,
+		s.Tokens[s.I].Column,
 	)
 		return ast.Identifier{}
 

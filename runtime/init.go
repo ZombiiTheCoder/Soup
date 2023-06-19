@@ -15,8 +15,8 @@ type RTInterpreter interface {
 	EvalLogical(node ast.LogicalExpr, env Env) Val
 
 	EvalBinaryTypes(node ast.BinaryExpr, env Env) Val
-	EvalBinaryAdditive(left ast.Expr, right ast.Expr, op string, env Env) Val
 	EvalBinaryBitwise(left ast.Expr, right ast.Expr, op string, env Env) Val
+	EvalBinaryAdditive(left ast.Expr, right ast.Expr, op string, env Env) Val
 	EvalBinaryEquality(left ast.Expr, right ast.Expr, op string, env Env) Val
 	EvalBinaryRelational(left ast.Expr, right ast.Expr, op string, env Env) Val
 	EvalBinaryConcatenation(left ast.Expr, right ast.Expr, op string, env Env) Val

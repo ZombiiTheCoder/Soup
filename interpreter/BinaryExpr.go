@@ -88,12 +88,24 @@ func (s *Interpreter) EvalBinaryEquality(left runtime.Val, right runtime.Val, op
 	switch op {
 	case "==":
 		if left.GetType() == right.GetType() {
-			return runtime.Bool{Type: "Bool", Value: reflect.DeepEqual(left, right)}
+			switch left.GetType() {
+			case "Int", "Null", "Float", "Bool", "String":
+				return runtime.Bool{Type: "Bool", Value: left.GetValue() == right.GetValue()}
+			default:
+				return runtime.Bool{Type: "Bool", Value: reflect.DeepEqual(left.GetValue(), right.GetValue())}
+
+			}
 		}
 		return runtime.Bool{Type: "Bool", Value: false}
 	case "!=":
 		if left.GetType() == right.GetType() {
-			return runtime.Bool{Type: "Bool", Value: !reflect.DeepEqual(left, right)}
+		switch left.GetType() {
+			case "Int", "Null", "Float", "Bool", "String":
+				return runtime.Bool{Type: "Bool", Value: left.GetValue() != right.GetValue()}
+			default:
+				return runtime.Bool{Type: "Bool", Value: !reflect.DeepEqual(left.GetValue(), right.GetValue())}
+
+			}
 		}
 		return runtime.Bool{Type: "Bool", Value: true}
 	}

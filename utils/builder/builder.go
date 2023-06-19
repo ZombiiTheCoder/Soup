@@ -28,9 +28,13 @@ func CreateNewParser(File string) ast.Stmt {
 
 }
 
-func CreateNewIntepreter(File string) runtime.Val {
+func CreateNewIntepreter(File string, env interface{}) runtime.Val {
+	cenv := interpreter.CreateEnv()
+	if env != nil {
+		cenv = env.(runtime.Env)
+	}
 	Interpreter := interpreter.Interpreter{}
 	Interpreter.Ast = CreateNewParser(File)
-	Interpreter.Env = interpreter.CreateEnv()
+	Interpreter.Env = cenv
 	return Interpreter.Eval(Interpreter.Ast, Interpreter.Env)
 }

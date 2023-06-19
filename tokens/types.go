@@ -54,14 +54,15 @@ const (
 	DMinus = "--"
 
 	// Keywords
-	If       = "if"
-	Val      = "val"
-	Var      = "var"
-	Use      = "use"
-	Else     = "else"
-	While    = "while"
-	Return   = "return"
-	Function = "function"
+	If                 = "if"
+	Val                = "val"
+	Var                = "var"
+	Use                = "use"
+	Else               = "else"
+	While              = "while"
+	Return             = "return"
+	Function           = "function"
+	Anonymous_Function = "anonymous_function"
 
 	// Types
 	Float      = "float"
@@ -80,8 +81,9 @@ var TokenRecord = map[string]TokenType{
 	// Import
 	"use": Use,
 
-	// Function Return Pair
-	"fn":  Function,
+	// Function Anonymous-Function Return Pair
+	"fn": Function,
+	// "func": Anonymous_Function,
 	"ret": Return,
 
 	// Conditional
