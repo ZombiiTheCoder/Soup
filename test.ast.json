@@ -1,0 +1,1158 @@
+{
+    "Stmt": null,
+    "Type": "Program",
+    "Body": [
+        {
+            "Stmt": null,
+            "Type": "FuncDec",
+            "Name": "add",
+            "Params": [
+                "a"
+            ],
+            "Body": [
+                {
+                    "Stmt": null,
+                    "Type": "ReturnStmt",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "+",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "a"
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "IntegerLiteral",
+                            "Valu": 1
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "Expr": null,
+            "Type": "CallExpr",
+            "Caller": {
+                "Expr": null,
+                "Type": "Identifier",
+                "Symb": "print"
+            },
+            "Args": [
+                {
+                    "Expr": null,
+                    "Type": "StringLiteral",
+                    "Valu": "Build Finished\n"
+                }
+            ]
+        },
+        {
+            "Stmt": null,
+            "Type": "VarDec",
+            "NotMut": false,
+            "Name": "array",
+            "Value": {
+                "Expr": null,
+                "Type": "ArrayExpr",
+                "Elements": [
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 1
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 2
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 3
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 4
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 5
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 6
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 7
+                    },
+                    {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 8
+                    }
+                ]
+            }
+        },
+        {
+            "Stmt": null,
+            "Type": "FuncDec",
+            "Name": "map",
+            "Params": [
+                "function",
+                "array"
+            ],
+            "Body": [
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "i",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 0
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "ne",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "ArrayExpr",
+                        "Elements": [
+                            {
+                                "Expr": null,
+                                "Type": "IntegerLiteral",
+                                "Valu": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "test",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "ObjectLiteral",
+                        "Properties": [
+                            {
+                                "Expr": null,
+                                "Type": "Property",
+                                "Key": "newArray",
+                                "Val": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "ne"
+                                }
+                            },
+                            {
+                                "Expr": null,
+                                "Type": "Property",
+                                "Key": "arraye",
+                                "Val": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "array"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "q",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "MemberExpr",
+                        "Computed": false,
+                        "Property": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "newArray"
+                        },
+                        "Obj": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "test"
+                        }
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "q2",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "MemberExpr",
+                        "Computed": false,
+                        "Property": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "arraye"
+                        },
+                        "Obj": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "test"
+                        }
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "WhileStmt",
+                    "Test": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "\u003c",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "i"
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "MemberExpr",
+                            "Computed": false,
+                            "Property": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "length"
+                            },
+                            "Obj": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "q2"
+                            }
+                        }
+                    },
+                    "Consquent": [
+                        {
+                            "Stmt": null,
+                            "Type": "VarDec",
+                            "NotMut": true,
+                            "Name": "element",
+                            "Value": {
+                                "Expr": null,
+                                "Type": "MemberExpr",
+                                "Computed": true,
+                                "Property": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "i"
+                                },
+                                "Obj": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "q2"
+                                }
+                            }
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "AssignExpr",
+                            "Assigner": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "q"
+                            },
+                            "Val": {
+                                "Expr": null,
+                                "Type": "CallExpr",
+                                "Caller": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "append"
+                                },
+                                "Args": [
+                                    {
+                                        "Expr": null,
+                                        "Type": "StringLiteral",
+                                        "Valu": "q"
+                                    },
+                                    {
+                                        "Expr": null,
+                                        "Type": "CallExpr",
+                                        "Caller": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "function"
+                                        },
+                                        "Args": [
+                                            {
+                                                "Expr": null,
+                                                "Type": "MemberExpr",
+                                                "Computed": true,
+                                                "Property": {
+                                                    "Expr": null,
+                                                    "Type": "Identifier",
+                                                    "Symb": "i"
+                                                },
+                                                "Obj": {
+                                                    "Expr": null,
+                                                    "Type": "Identifier",
+                                                    "Symb": "q2"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "Op": "="
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "UnaryExpr",
+                            "Op": "++",
+                            "Prefix": false,
+                            "Argument": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "i"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Stmt": null,
+                    "Type": "ReturnStmt",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "MemberExpr",
+                        "Computed": false,
+                        "Property": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "newArray"
+                        },
+                        "Obj": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "test"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "Stmt": null,
+            "Type": "FuncDec",
+            "Name": "test",
+            "Params": [
+                "_args"
+            ],
+            "Body": [
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "i",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 0
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "WhileStmt",
+                    "Test": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "\u003c",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "i"
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "MemberExpr",
+                            "Computed": false,
+                            "Property": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "length"
+                            },
+                            "Obj": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "_args"
+                            }
+                        }
+                    },
+                    "Consquent": [
+                        {
+                            "Stmt": null,
+                            "Type": "VarDec",
+                            "NotMut": true,
+                            "Name": "v",
+                            "Value": {
+                                "Expr": null,
+                                "Type": "MemberExpr",
+                                "Computed": true,
+                                "Property": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "i"
+                                },
+                                "Obj": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "_args"
+                                }
+                            }
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "CallExpr",
+                            "Caller": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "print"
+                            },
+                            "Args": [
+                                {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "MemberExpr",
+                                        "Computed": false,
+                                        "Property": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "format"
+                                        },
+                                        "Obj": {
+                                            "Expr": null,
+                                            "Type": "StringLiteral",
+                                            "Valu": "\n%v: %v"
+                                        }
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "i"
+                                        },
+                                        {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "v"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "UnaryExpr",
+                            "Op": "++",
+                            "Prefix": false,
+                            "Argument": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "i"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Stmt": null,
+            "Type": "FuncDec",
+            "Name": "listify",
+            "Params": [
+                "arg"
+            ],
+            "Body": [
+                {
+                    "Stmt": null,
+                    "Type": "IfStmt",
+                    "Test": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "!=",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "CallExpr",
+                            "Caller": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "type"
+                            },
+                            "Args": [
+                                {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "arg"
+                                }
+                            ]
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "StringLiteral",
+                            "Valu": "String"
+                        }
+                    },
+                    "Consquent": [
+                        {
+                            "Expr": null,
+                            "Type": "CallExpr",
+                            "Caller": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "print"
+                            },
+                            "Args": [
+                                {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "MemberExpr",
+                                        "Computed": false,
+                                        "Property": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "format"
+                                        },
+                                        "Obj": {
+                                            "Expr": null,
+                                            "Type": "StringLiteral",
+                                            "Valu": "\nArgument (arg) must be String not type %v"
+                                        }
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "CallExpr",
+                                            "Caller": {
+                                                "Expr": null,
+                                                "Type": "Identifier",
+                                                "Symb": "type"
+                                            },
+                                            "Args": [
+                                                {
+                                                    "Expr": null,
+                                                    "Type": "Identifier",
+                                                    "Symb": "arg"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "CallExpr",
+                            "Caller": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "exit"
+                            },
+                            "Args": [
+                                {
+                                    "Expr": null,
+                                    "Type": "IntegerLiteral",
+                                    "Valu": 0
+                                }
+                            ]
+                        }
+                    ],
+                    "Alternate": null
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "i",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 0
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "array",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "ArrayExpr",
+                        "Elements": []
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "WhileStmt",
+                    "Test": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "\u003c",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "i"
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "MemberExpr",
+                            "Computed": false,
+                            "Property": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "length"
+                            },
+                            "Obj": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "arg"
+                            }
+                        }
+                    },
+                    "Consquent": [
+                        {
+                            "Expr": null,
+                            "Type": "AssignExpr",
+                            "Assigner": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "array"
+                            },
+                            "Val": {
+                                "Expr": null,
+                                "Type": "CallExpr",
+                                "Caller": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "append"
+                                },
+                                "Args": [
+                                    {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "array"
+                                    },
+                                    {
+                                        "Expr": null,
+                                        "Type": "MemberExpr",
+                                        "Computed": true,
+                                        "Property": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "i"
+                                        },
+                                        "Obj": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "arg"
+                                        }
+                                    }
+                                ]
+                            },
+                            "Op": "="
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "UnaryExpr",
+                            "Op": "++",
+                            "Prefix": false,
+                            "Argument": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "i"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Stmt": null,
+                    "Type": "ReturnStmt",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "Identifier",
+                        "Symb": "array"
+                    }
+                }
+            ]
+        },
+        {
+            "Stmt": null,
+            "Type": "FuncDec",
+            "Name": "format_array",
+            "Params": [
+                "arg"
+            ],
+            "Body": [
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "arr",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "StringLiteral",
+                        "Valu": "["
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "last",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "MemberExpr",
+                        "Computed": true,
+                        "Property": {
+                            "Expr": null,
+                            "Type": "BinaryExpr",
+                            "Op": "-",
+                            "Left": {
+                                "Expr": null,
+                                "Type": "MemberExpr",
+                                "Computed": false,
+                                "Property": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "length"
+                                },
+                                "Obj": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "arg"
+                                }
+                            },
+                            "Right": {
+                                "Expr": null,
+                                "Type": "IntegerLiteral",
+                                "Valu": 1
+                            }
+                        },
+                        "Obj": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "arg"
+                        }
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "end",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "StringLiteral",
+                        "Valu": ", "
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "VarDec",
+                    "NotMut": false,
+                    "Name": "i",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "IntegerLiteral",
+                        "Valu": 0
+                    }
+                },
+                {
+                    "Stmt": null,
+                    "Type": "WhileStmt",
+                    "Test": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "\u003c",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "i"
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "MemberExpr",
+                            "Computed": false,
+                            "Property": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "length"
+                            },
+                            "Obj": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "arg"
+                            }
+                        }
+                    },
+                    "Consquent": [
+                        {
+                            "Stmt": null,
+                            "Type": "IfStmt",
+                            "Test": {
+                                "Expr": null,
+                                "Type": "BinaryExpr",
+                                "Op": "==",
+                                "Left": {
+                                    "Expr": null,
+                                    "Type": "MemberExpr",
+                                    "Computed": true,
+                                    "Property": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "i"
+                                    },
+                                    "Obj": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "arg"
+                                    }
+                                },
+                                "Right": {
+                                    "Expr": null,
+                                    "Type": "Identifier",
+                                    "Symb": "last"
+                                }
+                            },
+                            "Consquent": [
+                                {
+                                    "Expr": null,
+                                    "Type": "AssignExpr",
+                                    "Assigner": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "end"
+                                    },
+                                    "Val": {
+                                        "Expr": null,
+                                        "Type": "StringLiteral",
+                                        "Valu": ""
+                                    },
+                                    "Op": "="
+                                }
+                            ],
+                            "Alternate": null
+                        },
+                        {
+                            "Stmt": null,
+                            "Type": "IfStmt",
+                            "Test": {
+                                "Expr": null,
+                                "Type": "BinaryExpr",
+                                "Op": "==",
+                                "Left": {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "type"
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "MemberExpr",
+                                            "Computed": true,
+                                            "Property": {
+                                                "Expr": null,
+                                                "Type": "Identifier",
+                                                "Symb": "i"
+                                            },
+                                            "Obj": {
+                                                "Expr": null,
+                                                "Type": "Identifier",
+                                                "Symb": "arg"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "Right": {
+                                    "Expr": null,
+                                    "Type": "StringLiteral",
+                                    "Valu": "Array"
+                                }
+                            },
+                            "Consquent": [
+                                {
+                                    "Expr": null,
+                                    "Type": "AssignExpr",
+                                    "Assigner": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "arr"
+                                    },
+                                    "Val": {
+                                        "Expr": null,
+                                        "Type": "BinaryExpr",
+                                        "Op": "+",
+                                        "Left": {
+                                            "Expr": null,
+                                            "Type": "BinaryExpr",
+                                            "Op": "+",
+                                            "Left": {
+                                                "Expr": null,
+                                                "Type": "Identifier",
+                                                "Symb": "arr"
+                                            },
+                                            "Right": {
+                                                "Expr": null,
+                                                "Type": "CallExpr",
+                                                "Caller": {
+                                                    "Expr": null,
+                                                    "Type": "Identifier",
+                                                    "Symb": "format_array"
+                                                },
+                                                "Args": [
+                                                    {
+                                                        "Expr": null,
+                                                        "Type": "MemberExpr",
+                                                        "Computed": true,
+                                                        "Property": {
+                                                            "Expr": null,
+                                                            "Type": "Identifier",
+                                                            "Symb": "i"
+                                                        },
+                                                        "Obj": {
+                                                            "Expr": null,
+                                                            "Type": "Identifier",
+                                                            "Symb": "arg"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "Right": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "end"
+                                        }
+                                    },
+                                    "Op": "="
+                                }
+                            ],
+                            "Alternate": [
+                                {
+                                    "Expr": null,
+                                    "Type": "AssignExpr",
+                                    "Assigner": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "arr"
+                                    },
+                                    "Val": {
+                                        "Expr": null,
+                                        "Type": "BinaryExpr",
+                                        "Op": "+",
+                                        "Left": {
+                                            "Expr": null,
+                                            "Type": "BinaryExpr",
+                                            "Op": "+",
+                                            "Left": {
+                                                "Expr": null,
+                                                "Type": "Identifier",
+                                                "Symb": "arr"
+                                            },
+                                            "Right": {
+                                                "Expr": null,
+                                                "Type": "MemberExpr",
+                                                "Computed": true,
+                                                "Property": {
+                                                    "Expr": null,
+                                                    "Type": "Identifier",
+                                                    "Symb": "i"
+                                                },
+                                                "Obj": {
+                                                    "Expr": null,
+                                                    "Type": "Identifier",
+                                                    "Symb": "arg"
+                                                }
+                                            }
+                                        },
+                                        "Right": {
+                                            "Expr": null,
+                                            "Type": "Identifier",
+                                            "Symb": "end"
+                                        }
+                                    },
+                                    "Op": "="
+                                }
+                            ]
+                        },
+                        {
+                            "Expr": null,
+                            "Type": "UnaryExpr",
+                            "Op": "++",
+                            "Prefix": false,
+                            "Argument": {
+                                "Expr": null,
+                                "Type": "Identifier",
+                                "Symb": "i"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Expr": null,
+                    "Type": "AssignExpr",
+                    "Assigner": {
+                        "Expr": null,
+                        "Type": "Identifier",
+                        "Symb": "arr"
+                    },
+                    "Val": {
+                        "Expr": null,
+                        "Type": "BinaryExpr",
+                        "Op": "+",
+                        "Left": {
+                            "Expr": null,
+                            "Type": "Identifier",
+                            "Symb": "arr"
+                        },
+                        "Right": {
+                            "Expr": null,
+                            "Type": "StringLiteral",
+                            "Valu": "]"
+                        }
+                    },
+                    "Op": "="
+                },
+                {
+                    "Stmt": null,
+                    "Type": "ReturnStmt",
+                    "Value": {
+                        "Expr": null,
+                        "Type": "Identifier",
+                        "Symb": "arr"
+                    }
+                }
+            ]
+        },
+        {
+            "Expr": null,
+            "Type": "CallExpr",
+            "Caller": {
+                "Expr": null,
+                "Type": "Identifier",
+                "Symb": "test"
+            },
+            "Args": [
+                {
+                    "Expr": null,
+                    "Type": "CallExpr",
+                    "Caller": {
+                        "Expr": null,
+                        "Type": "Identifier",
+                        "Symb": "format_array"
+                    },
+                    "Args": [
+                        {
+                            "Expr": null,
+                            "Type": "ArrayExpr",
+                            "Elements": [
+                                {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "listify"
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "StringLiteral",
+                                            "Valu": "hi"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "listify"
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "StringLiteral",
+                                            "Valu": "hi"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Expr": null,
+                    "Type": "CallExpr",
+                    "Caller": {
+                        "Expr": null,
+                        "Type": "Identifier",
+                        "Symb": "format_array"
+                    },
+                    "Args": [
+                        {
+                            "Expr": null,
+                            "Type": "ArrayExpr",
+                            "Elements": [
+                                {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "listify"
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "StringLiteral",
+                                            "Valu": "hi"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Expr": null,
+                                    "Type": "CallExpr",
+                                    "Caller": {
+                                        "Expr": null,
+                                        "Type": "Identifier",
+                                        "Symb": "listify"
+                                    },
+                                    "Args": [
+                                        {
+                                            "Expr": null,
+                                            "Type": "StringLiteral",
+                                            "Valu": "hi"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

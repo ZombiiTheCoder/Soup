@@ -2,7 +2,7 @@ package ast
 
 type AssignExpr struct {
 	Expr
-	Type     string
+	Type     string `json:Type`
 	Assigner Expr
 	Val      Expr
 	Op       string
@@ -10,7 +10,7 @@ type AssignExpr struct {
 
 type TernaryExpr struct {
 	Expr
-	Type      string
+	Type      string `json:Type`
 	Condition Expr
 	Consquent Expr
 	Alternate any
@@ -18,7 +18,7 @@ type TernaryExpr struct {
 
 type LogicalExpr struct {
 	Expr
-	Type  string
+	Type  string `json:Type`
 	Op    string
 	Left  Expr
 	Right Expr
@@ -26,44 +26,44 @@ type LogicalExpr struct {
 
 type BinaryExpr struct {
 	Expr
-	Type  string
-	Op    string
-	Left  Expr
-	Right Expr
+	Type  string `json:Type`
+	Op    string `json:Op`
+	Left  Expr   `json:Left`
+	Right Expr   `json:Right`
 }
 
 type UnaryExpr struct {
 	Expr
-	Type     string
-	Op       string
-	Prefix   bool
-	Argument Expr
+	Type     string `json:Type`
+	Op       string `json:Op`
+	Prefix   bool   `json:Prefix`
+	Argument Expr   `json:Argument`
 }
 
 type CallExpr struct {
 	Expr
-	Type   string
-	Caller Expr
-	Args   []Expr
+	Type   string `json:Type`
+	Caller Expr   `json:Caller`
+	Args   []Expr `json:Args`
 }
 
 type MemberExpr struct {
 	Expr
-	Type     string
-	Computed bool
-	Property Expr
-	Obj      Expr
+	Type     string `json:Type`
+	Computed bool   `json:Computed`
+	Property Expr   `json:Property`
+	Obj      Expr   `json:Obj`
 }
 
 type ArrayExpr struct {
 	Expr
-	Type     string
-	Elements []Expr
+	Type     string `json:Type`
+	Elements []Expr `json:Elements`
 }
 
 type Property struct {
 	Expr
-	Type string
-	Key  string
-	Val  any
+	Type string `json:Type`
+	Key  string `json:Key`
+	Val  any    `json:Val`
 }

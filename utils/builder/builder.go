@@ -38,3 +38,17 @@ func CreateNewIntepreter(File string, env interface{}) runtime.Val {
 	Interpreter.Env = cenv
 	return Interpreter.Eval(Interpreter.Ast, Interpreter.Env)
 }
+
+func CreateNewIntepreterWithText(Text string, env interface{}) runtime.Val {
+	cenv := interpreter.CreateEnv()
+	if env != nil {
+		cenv = env.(runtime.Env)
+	}
+	Chars := strings.Split(Text, "")
+	Lexer := lexer.Lexer{FileName: "console.soup", Chars: Chars, I: 0, Line: 1, Column: 1}
+	Parser := parser.Parser{ I: 0, Tokens: Lexer.Tokenize(), FileName: "console.soup"}
+	Interpreter := interpreter.Interpreter{}
+	Interpreter.Ast = Parser.Parse()
+	Interpreter.Env = cenv
+	return Interpreter.Eval(Interpreter.Ast, Interpreter.Env)
+}

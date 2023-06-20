@@ -1,11 +1,11 @@
 package tokens
 
 type Token struct {
-	Value    string
-	Type     TokenType
-	FileName string
-	Line     int
-	Column   int
+	Value    string    `json:"Value"`
+	Type     TokenType `json:"Type"`
+	FileName string    `json:"FileName"`
+	Line     int       `json:"Line"`
+	Column   int       `json:"Column"`
 }
 
 func ConstructToken(Value string, Type TokenType, FileName string, Line, Column int) Token {

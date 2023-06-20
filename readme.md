@@ -34,10 +34,10 @@ Send project to main PKG folder
 test.soup
 ```soup
 
-    func hello_world(){
+    fn hello_world(){
 
-        val text = "Hello World"
-        return text
+        val text = "Hello World!\n"
+        ret text
 
     }
 

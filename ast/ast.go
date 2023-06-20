@@ -14,12 +14,12 @@ type Expr interface {
 
 type BlockStmt struct {
 	Stmt
-	Type string
-	Body []Stmt
+	Type string `json:Type`
+	Body []Stmt `json:Body`
 }
 
 type Program struct {
 	Stmt
-	Type string
-	Body []Stmt
+	Type string `json:Type`
+	Body []Stmt `json:Body`
 }
