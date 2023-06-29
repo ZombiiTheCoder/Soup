@@ -5,6 +5,11 @@ package main
 // 	"soup/utils"
 // )
 
+import (
+	"fmt"
+	Arrays "soup/lib/arrays"
+)
+
 var Solution string
 
 func main(){
@@ -16,5 +21,18 @@ func main(){
 	// }else {
 		// utils.Error("Invalid Solution Type: %v", Solution)
 	// }
+
+	nw := Arrays.NewArray()
+	
+	for i := 0; i < 101; i++ {
+		nw.Add("Hello World"+fmt.Sprintf("%v", i))
+	}
+
+	nw.Set(100, "Working Add, Set, and Find features in Arrays :)")
+
+	for i := 0; i < 101; i++ {
+		fmt.Println(nw.Find(i))
+	}
+	
 
 }

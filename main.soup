@@ -1,0 +1,7 @@
+module soup;
+
+fn q (a, b, args...) {
+
+}
+
+afun*
