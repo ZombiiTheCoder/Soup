@@ -28,3 +28,13 @@ func SplitByChar(line string, char byte) []string {
 	}
 	return list
 }
+
+func Count(line string, char byte) int {
+	count := 0
+	for i := 0; i < len(line); i++ {
+		if line[i] == char {
+			count += 1
+		}
+	}
+	return count
+}

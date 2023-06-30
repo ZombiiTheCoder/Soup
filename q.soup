@@ -1,0 +1,7 @@
+module soup;
+
+var hello int = 1
+
+fn q(a, b, args...) int {
+
+}
