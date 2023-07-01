@@ -67,6 +67,7 @@ const (
 	String     Types = "String"
 	Char       Types = "Char"
 	Identifier Types = "Identifier"
+	Type       Types = "Type"
 
 	EOF Types = "EOF"
 )
@@ -120,6 +121,12 @@ var Keywords = map[string]Types{
 	"if":    If,
 	"else":  Else,
 	"while": While,
+
+	"Int":    Type,
+	"Float":  Type,
+	"Char":   Type,
+	"String": Type,
+	"Bool":   Type,
 }
 
 type Token struct {
