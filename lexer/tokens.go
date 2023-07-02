@@ -122,11 +122,11 @@ var Keywords = map[string]Types{
 	"else":  Else,
 	"while": While,
 
-	"Int":    Type,
-	"Float":  Type,
-	"Char":   Type,
-	"String": Type,
-	"Bool":   Type,
+	"Int":    Identifier,
+	"Float":  Identifier,
+	"Char":   Identifier,
+	"String": Identifier,
+	"Bool":   Identifier,
 }
 
 type Token struct {

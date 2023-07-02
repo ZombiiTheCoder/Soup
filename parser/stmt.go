@@ -106,6 +106,7 @@ func (s *Parser) parseFunction() Stmt {
 	s.next()
 	name := s.expect(lexer.Identifier).Value
 	args := s.ParseTypedArgs()
+	Type := s.expect(lexer.Type).Value
 	params := make(map[string]string)
 
 	for k, v := range args {
@@ -115,11 +116,13 @@ func (s *Parser) parseFunction() Stmt {
 
 		params[k.(Identifier).Value] = v.(Identifier).Value
 	}
-	body := s.parseBlock().Body
+	body := s.parseBlock().(BlockStmt).Body
 	s.eatSemi()
 
 	return FuncDec{
-		Type: "FuncDec",
+		NodeType: "FuncDec",
+
+		Type: Type,
 		Name: name,
 		Params: params,
 		Body: body,
@@ -127,9 +130,57 @@ func (s *Parser) parseFunction() Stmt {
 }
 
 func (s *Parser) parseWhile() Stmt {
+	s.next()
+	s.expect(lexer.OpenParen)
+	condition:=s.parseStmt()
+	s.expect(lexer.ClosedParen)
+	consequent:=s.parseBlock().(BlockStmt).Body
 	
+	return WhileStmt{
+		NodeType:"WhileStmt",
+		
+		Type: "Null",
+		Condition: condition,
+		Consequent: consequent,
+	}
 }
 
 func (s *Parser) parseReturn() Stmt {
-	
+	s.next()
+	val := s.parseExpr()
+	s.eatSemi()
+
+	return ReturnStmt{
+		NodeType: "ReturnStmt",
+		Value: val,
+	}
+}
+
+func (s *Parser) ParseTypedArgs() map[Expr]Expr {
+
+	s.expect(lexer.OpenParen)
+
+	var args map[Expr]Expr
+	if s.at().Type == lexer.ClosedParen {
+		args = make(map[Expr]Expr)
+	} else {
+		args = s.ParseTypedArgsList()
+	}
+
+	s.expect(lexer.ClosedParen)
+	return args
+}
+
+func (s *Parser) ParseTypedArgsList() map[Expr]Expr {
+
+	args := make(map[Expr]Expr)
+	args[s.parseExpr()] = s.parseExpr()
+
+	for s.at().Type == lexer.Comma {
+		s.next()
+		args[s.parseAssign()] = s.parseExpr()
+	}
+
+	return args
+
 }

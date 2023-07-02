@@ -44,3 +44,30 @@ type IfStmt struct {
 	Consequent []Stmt
 	Alternate  any
 }
+
+type WhileStmt struct {
+	Stmt
+	NodeType string
+
+	Type       string
+	Condition  Stmt
+	Consequent []Stmt
+}
+
+type FuncDec struct {
+	Stmt
+	NodeType string
+
+	Type   string
+	Name   string
+	Params map[string]string
+	Body   []Stmt
+}
+
+type ReturnStmt struct {
+	Stmt
+	NodeType string
+
+	Type  string
+	Value Expr
+}
